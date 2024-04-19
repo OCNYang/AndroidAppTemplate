@@ -4,7 +4,6 @@ import com.app.api.bean.BaseResult
 import com.app.network.HttpManager
 import okhttp3.RequestBody
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.POST
 

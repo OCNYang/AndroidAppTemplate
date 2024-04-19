@@ -1,26 +1,21 @@
 package com.app.template.page.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.app.template.R
+import com.app.template.page._widget.WebViewCompose
 import com.app.template.ui.theme.AndroidAppTemplateTheme
 import com.app.template.viewmodel.HomeViewModel
 
@@ -32,23 +27,21 @@ fun HomeScreen(
     viewModel: HomeViewModel = HomeViewModel(),
 ) {
     val pagerState = rememberPagerState(pageCount = { 1 })
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier.background(Color.Blue),
         topBar = {
             HomeTopAppBar(
                 pagerState = pagerState,
                 onFilterClick = {
                     // viewModel.updateData()
                 },
-                scrollBehavior = scrollBehavior
             )
         }
     ) { contentPadding ->
         HomePagerScreen(
             onPlantClick = onPlantClick,
             pagerState = pagerState,
-            Modifier.padding(top = contentPadding.calculateTopPadding())
+            Modifier.background(Color.Yellow).padding(contentPadding).background(Color.Green)
         )
     }
 }
@@ -65,6 +58,16 @@ fun HomePagerScreen(
             text = "Hello Compose!",
             modifier = modifier
         )
+        WebViewCompose(
+            modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+            url = "https://www.shedoor.net/"
+        ) {
+            this.settings.apply {
+                javaScriptEnabled = true
+                javaScriptCanOpenWindowsAutomatically = true
+            }
+        }
+
     }
 }
 

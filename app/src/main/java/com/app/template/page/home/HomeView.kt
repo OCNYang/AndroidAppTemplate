@@ -1,6 +1,7 @@
 package com.app.template.page.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.app.template.R
 
@@ -24,7 +26,7 @@ import com.app.template.R
 fun HomeTopAppBar(
     pagerState: PagerState,
     onFilterClick: () -> Unit,
-    scrollBehavior: TopAppBarScrollBehavior,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     modifier: Modifier = Modifier
 ) {
     CenterAlignedTopAppBar(
@@ -35,11 +37,11 @@ fun HomeTopAppBar(
             ) {
                 Text(
                     text = stringResource(id = R.string.app_name),
-                    style = MaterialTheme.typography.displaySmall
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
         },
-        modifier = modifier,
+        modifier = modifier.background(Color.Red),
         actions = {
 
         },

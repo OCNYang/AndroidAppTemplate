@@ -27,4 +27,8 @@ rootProject.name = "AndroidAppTemplate"
 include(":app")
 include(":base")
 include(":network")
+project(":network").projectDir = File(settingsDir, "./network/network")
 include(":api")
+project(":api").projectDir = File(settingsDir, "./network/api")
+include(":webview-x5")
+project(":webview-x5").projectDir = File(settingsDir, "./webview/webview-x5")

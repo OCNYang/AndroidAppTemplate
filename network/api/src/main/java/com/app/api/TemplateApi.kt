@@ -1,7 +1,5 @@
 package com.app.api
 
-import com.app.api.bean.BaseResult
-
 interface TemplateApi {
 
     // fun getTemplate(): Flow<List<String>>
