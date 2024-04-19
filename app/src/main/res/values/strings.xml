@@ -1,0 +1,5 @@
+<resources>
+    <!--  TODO: This is the name of your application.   -->
+    <string name="app_name">AndroidAppTemplate</string>
+    <string name="share_text_plant" translation_description="The default messaged used when sharing a plant on SNS, etc.">Check out the %s plant in the Android Sunflower app</string>
+</resources>
