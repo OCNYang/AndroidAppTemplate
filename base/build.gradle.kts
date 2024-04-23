@@ -42,7 +42,9 @@ dependencies {
     // api(libs.toast.utils)
 
     // 权限动态申请
-    api(libs.ktx)
+    api(libs.permissions)
+
+    api(libs.androidx.lifecycle.process)
 
     // 日志打印
     api(libs.com.orhanobut.logger5)
@@ -55,5 +57,9 @@ dependencies {
 
     // 数据本地化
     implementation(libs.mmkv)
+
+    implementation("io.coil-kt:coil:2.6.0")
+    implementation("io.coil-kt:coil-compose:2.2.2")
+
 
 }

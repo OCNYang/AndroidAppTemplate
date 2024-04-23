@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.app.api.CallListener
 import com.app.api.TemplateApi
-import com.app.base.LoG
+import com.app.base.LogX
 import com.app.base.showToast
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,7 +44,7 @@ class HomeViewModel : ViewModel() {
                     super.onCallEnd()
                 }
             })
-            LoG.e("接口返回：$data")
+            LogX.e("接口返回：$data")
         }
     }
 }

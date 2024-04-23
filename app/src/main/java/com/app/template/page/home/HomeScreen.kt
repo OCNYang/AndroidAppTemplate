@@ -12,9 +12,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.app.base.AppLifecycleViewModel
+import com.app.base.Log
+import com.app.base.NetworkChangeViewModel
+import com.app.base.appViewModel
 import com.app.template.page._widget.WebViewCompose
 import com.app.template.ui.theme.AndroidAppTemplateTheme
 import com.app.template.viewmodel.HomeViewModel
@@ -24,9 +30,22 @@ import com.app.template.viewmodel.HomeViewModel
 fun HomeScreen(
     modifier: Modifier = Modifier,
     onPlantClick: (String) -> Unit = {},
-    viewModel: HomeViewModel = HomeViewModel(),
+    viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    appLifecycleViewModel: AppLifecycleViewModel = appViewModel()
 ) {
     val pagerState = rememberPagerState(pageCount = { 1 })
+
+    val appLifeState = appLifecycleViewModel.appSimpleLifecycleFlow.collectAsState()
+    val networkState = appViewModel<NetworkChangeViewModel>().networkFlow.collectAsState()
+
+    LaunchedEffect(key1 = appLifeState.value) {
+         Log.d("应用:${appLifeState.value}")
+    }
+
+    LaunchedEffect(key1 = networkState.value) {
+         Log.e("网络：${networkState.value.toString()}")
+    }
+
     Scaffold(
         modifier = modifier.background(Color.Blue),
         topBar = {
