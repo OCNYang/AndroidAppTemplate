@@ -38,5 +38,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // X5 内核 ✅ [https://x5.tencent.com/docs/access.html]
     api("com.tencent.tbs:tbssdk:44286")
 }

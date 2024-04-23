@@ -35,26 +35,25 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+
     implementation(project(":base"))
     implementation(project(":api"))
     implementation(project(":base"))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // 网络请求
+    // 网络请求 ✅ [https://github.com/square/okhttp]
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
-    // retrofit
+
+    // retrofit ✅ [https://github.com/square/retrofit?tab=readme-ov-file]
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0") // todo 无用
 
     // 依赖 autoService 库
     implementation("com.google.auto.service:auto-service-annotations:1.1.1")
-
-
-    // 依赖 autoService 库
-    // implementation("com.google.auto.service:auto-service:1.1.1")
     kapt("com.google.auto.service:auto-service:1.1.1")
 
 }

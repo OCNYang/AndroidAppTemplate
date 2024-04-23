@@ -20,6 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# X5
 -dontwarn dalvik.**
 -dontwarn com.tencent.smtt.**
 

@@ -1,16 +1,18 @@
 [versions]
 agp = "8.3.2"
-comOrhanobutLogger3 = "2.2.0"
+coilCompose = "2.3.0"
+coil = "2.6.0"
+logger = "2.2.0"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-permissions = "1.1.4"
+permissions = "18.63"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 composeBom = "2024.03.00"
-mmkv = "1.2.14"
+mmkv = "1.3.4"
 navigationCompose = "2.7.7"
 pagingCompose = "3.3.0-alpha03"
 appcompat = "1.6.1"
@@ -18,10 +20,13 @@ material = "1.10.0"
 reactivenetworkRx2 = "3.0.8"
 toastutils = "11.2"
 jetbrainsKotlinJvm = "1.9.0"
+utilcodex = "1.31.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-com-orhanobut-logger5 = { module = "com.orhanobut:logger", version.ref = "comOrhanobutLogger3" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+logger = { module = "com.orhanobut:logger", version.ref = "logger" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -39,11 +44,12 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-permissions = { module = "com.github.permissions-dispatcher:ktx", version.ref = "permissions" }
+xxpermissions = { module = "com.github.getActivity:XXPermissions", version.ref = "permissions" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 mmkv = { module = "com.tencent:mmkv", version.ref = "mmkv" }
 reactivenetwork-rx2 = { module = "com.github.pwittchen:reactivenetwork-rx2", version.ref = "reactivenetworkRx2" }
 toast-utils = { module = "com.github.getActivity:ToastUtils", version.ref = "toastutils" }
+utilcodex = { module = "com.blankj:utilcodex", version.ref = "utilcodex" }
 
 
 [plugins]

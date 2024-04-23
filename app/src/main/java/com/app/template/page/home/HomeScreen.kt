@@ -79,7 +79,7 @@ fun HomePagerScreen(
         )
         WebViewCompose(
             modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-            url = "https://www.shedoor.net/"
+            url = "https://github.com/ocnyang"
         ) {
             this.settings.apply {
                 javaScriptEnabled = true

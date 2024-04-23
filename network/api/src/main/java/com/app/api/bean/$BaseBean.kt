@@ -2,7 +2,7 @@ package com.app.api.bean
 
 import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
+@JsonClass(generateAdapter = false)
 data class BaseResult<T>(
     val code: Int = 0,
     val msg: String = "",

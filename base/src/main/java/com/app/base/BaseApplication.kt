@@ -7,6 +7,7 @@ import android.os.Build
 import android.text.TextUtils
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.multidex.BuildConfig
+import com.app.webview_x5.X5
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.PrettyFormatStrategy
 import com.tencent.mmkv.MMKV
@@ -21,6 +22,9 @@ abstract class BaseApplication : Application() {
 
         NetworkChangeListener.init(this)
         AppForegroundListener().init()
+
+        X5.init(this)
+
     }
 
     private fun initMMKV() {

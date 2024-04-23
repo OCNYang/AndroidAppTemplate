@@ -1,5 +1,6 @@
 package com.app.base
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -23,11 +24,12 @@ object NetworkChangeListener {
     /**
      * need : android.permission.ACCESS_NETWORK_STATE
      */
+    @SuppressLint("CheckResult")
     fun init(
         app: Application,
         onChange: (Connectivity) -> Unit = { Log.d("NetworkChangeListener", "event network: ${it.toString()}") }
     ) {
-        val subscribe = ReactiveNetwork.observeNetworkConnectivity(app)
+        ReactiveNetwork.observeNetworkConnectivity(app)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {

@@ -38,28 +38,36 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Toast 消息
-    // api(libs.toast.utils)
-
-    // 权限动态申请
-    api(libs.permissions)
-
     api(libs.androidx.lifecycle.process)
 
-    // 日志打印
-    api(libs.com.orhanobut.logger5)
+    api(project(":webview-x5"))
+
+    // 权限动态申请 ✅ [https://github.com/getActivity/XXPermissions]
+    api(libs.xxpermissions)
+
+    // 日志打印 ✅ [https://github.com/orhanobut/logger]
+    api(libs.logger)
+
+    // 网络状态管理库 ✅ [https://github.com/pwittchen/ReactiveNetwork]
+    api(libs.reactivenetwork.rx2)
+
+    // 数据本地化 ✅ [https://github.com/Tencent/MMKV]
+    implementation(libs.mmkv)
+
+    // 图片加载 ✅ [https://github.com/coil-kt/coil]
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+
+    // AndroidUtilCode ✅ [https://github.com/Blankj/AndroidUtilCode]
+    api(libs.utilcodex)
+
+    // 状态栏 ✅ [https://github.com/gyf-dev/ImmersionBar]
+    implementation("com.geyifeng.immersionbar:immersionbar:3.2.2")
+    implementation("com.geyifeng.immersionbar:immersionbar-ktx:3.2.2")
 
     // 多语言切换
     // api 'com.github.getActivity:MultiLanguages:8.0'
 
-    // 网络状态管理库
-    api(libs.reactivenetwork.rx2)
-
-    // 数据本地化
-    implementation(libs.mmkv)
-
-    implementation("io.coil-kt:coil:2.6.0")
-    implementation("io.coil-kt:coil-compose:2.2.2")
-
-
+    // Toast 消息
+    // api(libs.toast.utils)
 }

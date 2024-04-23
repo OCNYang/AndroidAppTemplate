@@ -60,10 +60,11 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.paging.compose)
+
     implementation(project(":base"))
     implementation(project(":api"))
     runtimeOnly(project(":network"))
-    implementation(project(":webview-x5"))
+
 //    implementation(libs.androidx.constraintlayout.compose)
 //    implementation(libs.androidx.compose.runtime)
 //    implementation(libs.androidx.compose.foundation)
