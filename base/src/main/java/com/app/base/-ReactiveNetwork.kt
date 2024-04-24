@@ -2,6 +2,7 @@ package com.app.base
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
@@ -26,10 +27,10 @@ object NetworkChangeListener {
      */
     @SuppressLint("CheckResult")
     fun init(
-        app: Application,
+        context: Context,
         onChange: (Connectivity) -> Unit = { Log.d("NetworkChangeListener", "event network: ${it.toString()}") }
     ) {
-        ReactiveNetwork.observeNetworkConnectivity(app)
+        ReactiveNetwork.observeNetworkConnectivity(context.applicationContext)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -12,5 +13,21 @@
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
+        <!--StartUp 初始化注册-->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.app.base.LoggerInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.app.base.MMKVInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.app.base.X5Initializer"
+                android:value="androidx.startup" />
+        </provider>
     </application>
 </manifest>

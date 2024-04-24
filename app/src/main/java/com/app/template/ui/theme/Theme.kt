@@ -53,6 +53,7 @@ fun AndroidAppTemplateTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
+
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
@@ -61,7 +62,16 @@ fun AndroidAppTemplateTheme(
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.background.toArgb() // 控制状态栏背景色
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme // 控制状态栏图标颜色
+
+            // WindowCompat.setDecorFitsSystemWindows(window,false) // 留出空间，!!!无效
+            WindowCompat.getInsetsController(window, view).apply {
+                isAppearanceLightStatusBars = !darkTheme // 控制状态栏图标颜色
+//                hide(WindowInsetsCompat.Type.statusBars()) // 控制显隐
+//                hide(WindowInsetsCompat.Type.navigationBars())
+//                show(WindowInsetsCompat.Type.captionBar())
+//                show(WindowInsetsCompat.Type.ime())
+//                systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE // 控制隐藏状态，滑动显示
+            }
         }
     }
 

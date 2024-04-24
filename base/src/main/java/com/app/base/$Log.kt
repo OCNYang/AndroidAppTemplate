@@ -4,7 +4,7 @@ import android.util.Log
 
 typealias LogX = com.orhanobut.logger.Logger
 
-private val TAG by lazy { BaseApplication.get().packageName }
+private val TAG = BaseApplication.TAG
 
 object Log {
     fun d(msg: String) = Log.d(TAG, msg)

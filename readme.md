@@ -40,4 +40,6 @@
 如果是全屏：使用1；禁用2；
 如果不是全屏：可以两者一起使用，但要主要不要有冲突；也可以使用一种。
 
+第三种的方式：Compose 控制：https://stackoverflow.com/questions/69688138/how-to-hide-navigationbar-and-statusbar-in-jetpack-compose
+
 

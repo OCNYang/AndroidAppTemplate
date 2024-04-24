@@ -3,7 +3,6 @@ package com.app.base
 import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.graphics.Color
 import com.blankj.utilcode.util.ScreenUtils
 import com.gyf.immersionbar.ImmersionBar
 

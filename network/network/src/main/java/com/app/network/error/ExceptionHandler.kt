@@ -22,7 +22,7 @@ object ExceptionHandler {
                 //登录失效
             }
         } else if (e is NoNetWorkException) {
-            Toast.makeText(BaseApplication.get(), "网络异常，请尝试刷新", Toast.LENGTH_SHORT)
+            Toast.makeText(BaseApplication.instance, "网络异常，请尝试刷新", Toast.LENGTH_SHORT)
             ex = ApiException(ERROR.NETWORD_ERROR, e)
         } else if (e is HttpException) {
             ex = when (e.code()) {

@@ -6,49 +6,27 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.text.TextUtils
 import androidx.core.content.pm.PackageInfoCompat
-import androidx.multidex.BuildConfig
-import com.app.webview_x5.X5
 import com.ocnyang.status_box.StatusBoxGlobalConfig
 import com.ocnyang.status_box.initDef
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.PrettyFormatStrategy
 import com.tencent.mmkv.MMKV
 
 abstract class BaseApplication : Application() {
     override fun onCreate() {
-        super.onCreate()
         instance = this
-
-        initMMKV()
-        initLogLib()
+        super.onCreate()
 
         NetworkChangeListener.init(this)
         AppForegroundListener().init()
-
-        X5.init(this)
         StatusBoxGlobalConfig.initDef()
-
-    }
-
-    private fun initMMKV() {
-        val rootDir = MMKV.initialize(this)
-        Log.e("MMKV-dir: $rootDir")
-    }
-
-
-    private fun initLogLib() {
-        LogX.addLogAdapter(object : AndroidLogAdapter(PrettyFormatStrategy.newBuilder().tag("e-bike").build()) {
-            override fun isLoggable(priority: Int, tag: String?) = BuildConfig.DEBUG
-        })
     }
 
     companion object {
 
         @JvmStatic
-        lateinit var instance: BaseApplication
+        val TAG = "com.app.template"
 
         @JvmStatic
-        fun get(): BaseApplication = instance
+        lateinit var instance: BaseApplication
 
         private const val TOKEN_KEY = "user-token-key"
 
