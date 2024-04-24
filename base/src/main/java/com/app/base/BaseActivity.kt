@@ -3,6 +3,7 @@ package com.app.base
 import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.graphics.Color
 import com.blankj.utilcode.util.ScreenUtils
 import com.gyf.immersionbar.ImmersionBar
 
@@ -19,8 +20,9 @@ abstract class BaseActivity : ComponentActivity() {
             ScreenUtils.setPortrait(this)
         }
 
-        // 无差别
-        // ImmersionBar.with(this).init()
+        ImmersionBar.with(this)
+            // .navigationBarColor("#ffffffff") // todo 背景色
+            .init()
     }
 
     override fun attachBaseContext(context: Context?) {

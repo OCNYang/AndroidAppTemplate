@@ -55,15 +55,17 @@ dependencies {
     implementation(libs.mmkv)
 
     // 图片加载 ✅ [https://github.com/coil-kt/coil]
-    implementation(libs.coil)
-    implementation(libs.coil.compose)
+    api(libs.coil)
+    api(libs.coil.compose)
 
     // AndroidUtilCode ✅ [https://github.com/Blankj/AndroidUtilCode]
     api(libs.utilcodex)
 
     // 状态栏 ✅ [https://github.com/gyf-dev/ImmersionBar]
-    implementation("com.geyifeng.immersionbar:immersionbar:3.2.2")
-    implementation("com.geyifeng.immersionbar:immersionbar-ktx:3.2.2")
+    api("com.geyifeng.immersionbar:immersionbar:3.2.2")
+    api("com.geyifeng.immersionbar:immersionbar-ktx:3.2.2")
+
+    api("com.github.ocnyang:compose-status-box:1.0.1")
 
     // 多语言切换
     // api 'com.github.getActivity:MultiLanguages:8.0'

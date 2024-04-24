@@ -1,12 +1,11 @@
 package com.app.template.page.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -15,39 +14,41 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.app.base.AppLifecycleViewModel
 import com.app.base.Log
 import com.app.base.NetworkChangeViewModel
 import com.app.base.appViewModel
 import com.app.template.page._widget.WebViewCompose
-import com.app.template.ui.theme.AndroidAppTemplateTheme
 import com.app.template.viewmodel.HomeViewModel
+import com.ocnyang.status_box.StateContainer
+import com.ocnyang.status_box.StatusBox
+import com.ocnyang.status_box.UIState
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxSize(),
     onPlantClick: (String) -> Unit = {},
     viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
     appLifecycleViewModel: AppLifecycleViewModel = appViewModel()
 ) {
     val pagerState = rememberPagerState(pageCount = { 1 })
+    val pageStateContainer = StateContainer(state = UIState.Success(""))
 
     val appLifeState = appLifecycleViewModel.appSimpleLifecycleFlow.collectAsState()
     val networkState = appViewModel<NetworkChangeViewModel>().networkFlow.collectAsState()
 
     LaunchedEffect(key1 = appLifeState.value) {
-         Log.d("应用:${appLifeState.value}")
+        Log.d("应用:${appLifeState.value}")
     }
 
     LaunchedEffect(key1 = networkState.value) {
-         Log.e("网络：${networkState.value.toString()}")
+        Log.e("网络：${networkState.value.toString()}")
     }
 
     Scaffold(
-        modifier = modifier.background(Color.Blue),
+        modifier = modifier,
         topBar = {
             HomeTopAppBar(
                 pagerState = pagerState,
@@ -57,48 +58,23 @@ fun HomeScreen(
             )
         }
     ) { contentPadding ->
-        HomePagerScreen(
-            onPlantClick = onPlantClick,
-            pagerState = pagerState,
-            Modifier.background(Color.Yellow).padding(contentPadding).background(Color.Green)
-        )
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun HomePagerScreen(
-    onPlantClick: (String) -> Unit,
-    pagerState: PagerState,
-    modifier: Modifier = Modifier,
-) {
-    Column(modifier) {
-        Text(
-            text = "Hello Compose!",
-            modifier = modifier
-        )
-        WebViewCompose(
-            modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-            url = "https://github.com/ocnyang"
+        StatusBox(
+            modifier = Modifier.fillMaxSize().padding(contentPadding),
+            stateContainer = pageStateContainer,
+            contentScrollEnabled = false
         ) {
-            this.settings.apply {
-                javaScriptEnabled = true
-                javaScriptCanOpenWindowsAutomatically = true
+            Spacer(modifier = Modifier.weight(1f))
+
+            WebViewCompose(
+                modifier = Modifier.fillMaxWidth().height(300.dp),
+                url = "https://github.com/ocnyang"
+            ) {
+                this.settings.apply {
+                    javaScriptEnabled = true
+                    javaScriptCanOpenWindowsAutomatically = true
+                }
             }
+            Spacer(modifier = Modifier.weight(1f))
         }
-
-    }
-}
-
-
-@OptIn(ExperimentalFoundationApi::class)
-@Preview
-@Composable
-private fun HomeScreenPreview() {
-    AndroidAppTemplateTheme {
-        HomePagerScreen(
-            onPlantClick = {},
-            pagerState = rememberPagerState(pageCount = { 1 }),
-        )
     }
 }

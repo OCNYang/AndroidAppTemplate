@@ -25,12 +25,12 @@ fun SunFlowerNavHost(
     navController: NavHostController
 ) {
     val activity = (LocalContext.current as Activity)
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
-        composable(route = Screen.Home.route) {
+    NavHost(navController = navController, startDestination = ScreenRoute.Home.route) {
+        composable(route = ScreenRoute.Home.route) {
             HomeScreen(
                 onPlantClick = {
                     navController.navigate(
-                        Screen.PlantDetail.createRoute(
+                        ScreenRoute.PlantDetail.createRoute(
                             plantId = "id"
                         )
                     )

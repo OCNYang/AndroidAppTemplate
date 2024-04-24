@@ -8,6 +8,8 @@ import android.text.TextUtils
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.multidex.BuildConfig
 import com.app.webview_x5.X5
+import com.ocnyang.status_box.StatusBoxGlobalConfig
+import com.ocnyang.status_box.initDef
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.PrettyFormatStrategy
 import com.tencent.mmkv.MMKV
@@ -24,6 +26,7 @@ abstract class BaseApplication : Application() {
         AppForegroundListener().init()
 
         X5.init(this)
+        StatusBoxGlobalConfig.initDef()
 
     }
 

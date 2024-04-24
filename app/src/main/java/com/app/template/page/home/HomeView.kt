@@ -41,7 +41,7 @@ fun HomeTopAppBar(
                 )
             }
         },
-        modifier = modifier.background(Color.Red),
+        modifier = modifier,
         actions = {
 
         },

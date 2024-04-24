@@ -30,3 +30,14 @@
 
 潜力用法没发掘
 
+## 状态栏
+
+下面两者都可以控制：
+1. BaseActivity -> ImmersionBar.xxx.init()
+2. Theme -> LocalView.current.window
+
+具体可以查看代码；需要注意的是，根据需要来选择：
+如果是全屏：使用1；禁用2；
+如果不是全屏：可以两者一起使用，但要主要不要有冲突；也可以使用一种。
+
+
