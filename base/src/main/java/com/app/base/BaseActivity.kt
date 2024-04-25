@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import com.blankj.utilcode.util.ScreenUtils
+import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
 
 /**
@@ -20,6 +21,9 @@ abstract class BaseActivity : ComponentActivity() {
         }
 
         ImmersionBar.with(this)
+            .statusBarDarkFont(true)
+            .navigationBarDarkIcon(true)
+            .hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
             // .navigationBarColor("#ffffffff") // todo 背景色
             .init()
     }

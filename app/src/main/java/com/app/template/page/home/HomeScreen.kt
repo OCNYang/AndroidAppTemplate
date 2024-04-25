@@ -1,15 +1,31 @@
 package com.app.template.page.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import com.app.base.AppLifecycleViewModel
 import com.app.base.Log
 import com.app.base.NetworkChangeViewModel
@@ -58,6 +74,29 @@ fun HomeScreen(
             stateContainer = pageStateContainer,
             contentScrollEnabled = false
         ) {
+
+            var imageState by remember {
+                mutableStateOf<AsyncImagePainter.State?>(null)
+            }
+
+            SubcomposeAsyncImage(
+                modifier = Modifier.fillMaxWidth().height(120.dp),
+                model = "https://pic-go-bed.oss-cn-beijing.aliyuncs.com/img/20220316151929.png",
+                contentDescription = "",
+                onState = {
+                    imageState = it
+                }
+            ) {
+                when (imageState) {
+                    AsyncImagePainter.State.Empty -> Text(text = "图片地址错误", Modifier.background(Color.Blue))
+                    is AsyncImagePainter.State.Error -> Text(text = "Error", Modifier.background(Color.Blue))
+                    is AsyncImagePainter.State.Loading -> CircularProgressIndicator(Modifier.align(Alignment.Center).size(30.dp))
+                    is AsyncImagePainter.State.Success -> SubcomposeAsyncImageContent()
+                    null -> SubcomposeAsyncImageContent()
+                }
+            }
+
+
             WebViewCompose(
                 modifier = Modifier.fillMaxSize(),
                 url = "https://github.com/ocnyang"
