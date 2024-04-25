@@ -23,7 +23,6 @@ class MainActivity : BaseActivity() {
             AndroidAppTemplateTheme(dynamicColor = false) {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     TemplateApp()
-
                 }
             }
         }

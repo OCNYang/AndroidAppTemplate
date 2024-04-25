@@ -26,6 +26,5 @@ sealed class ScreenRoute(
         })
     ) {
         fun createRoute(plantName: String) = "gallery/${plantName}"
-
     }
 }

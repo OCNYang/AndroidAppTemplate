@@ -42,4 +42,6 @@
 
 第三种的方式：Compose 控制：https://stackoverflow.com/questions/69688138/how-to-hide-navigationbar-and-statusbar-in-jetpack-compose
 
+## 启动页 SplashScreen
 
+修改 themes/Theme.SplashScreen.MySplash

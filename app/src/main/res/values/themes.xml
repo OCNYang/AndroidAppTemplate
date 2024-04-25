@@ -4,10 +4,13 @@
     <style name="Theme.AndroidAppTemplate" parent="android:Theme.Material.Light.NoActionBar" />
 
     <style name="Theme.SplashScreen.MySplash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#FF6200EE</item>
+        <item name="windowSplashScreenBackground">#FF3DDC84</item>
+        <!--    todo 应用图标，如果图标大小为X，则可见区域为中心区域的 X/1.5    -->
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
-<!--        <item name="windowSplashScreenAnimationDuration">200</item>-->
-<!--        <item name="android:windowSplashScreenIconBackgroundColor">#FFED9FA3</item>-->
+        <!--        <item name="windowSplashScreenAnimationDuration">200</item>-->
+        <!--        <item name="android:windowSplashScreenIconBackgroundColor">#FFED9FA3</item>-->
+        <!--    todo 品牌图片：宽高比5:2    -->
+        <item name="android:windowSplashScreenBrandingImage">@drawable/brand_logo</item>
         <item name="postSplashScreenTheme">@style/Theme.AndroidAppTemplate</item>
     </style>
 </resources>
