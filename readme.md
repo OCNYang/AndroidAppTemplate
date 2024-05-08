@@ -1,5 +1,6 @@
 # Android App Template
 
+```
 .
 ├── app
 ├── base
@@ -8,7 +9,7 @@
 │   └── network
 └── webview
     └── webview-x5
-
+```
 
 * 网络请求整体框架
 * WebView
