@@ -7,5 +7,5 @@ fun showToast(msg: String) {
 }
 
 fun showToast(msg: String, long: Boolean = false) {
-    Toast.makeText(BaseApplication.instance, msg, if (long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT).show()
+    Toast.makeText(BaseApplication.INSTANCE, msg, if (long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT).show()
 }

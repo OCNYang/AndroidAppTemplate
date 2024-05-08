@@ -11,8 +11,9 @@ import com.ocnyang.status_box.initDef
 import com.tencent.mmkv.MMKV
 
 abstract class BaseApplication : Application() {
+
     override fun onCreate() {
-        instance = this
+        INSTANCE = this
         super.onCreate()
 
         NetworkChangeListener.init(this)
@@ -21,12 +22,14 @@ abstract class BaseApplication : Application() {
     }
 
     companion object {
-
         @JvmStatic
         val TAG = "com.app.template"
 
         @JvmStatic
-        lateinit var instance: BaseApplication
+        lateinit var INSTANCE: BaseApplication
+
+        @JvmStatic
+        lateinit var MAIN_ACTIVITY: BaseActivity
 
         private const val TOKEN_KEY = "user-token-key"
 
@@ -45,7 +48,7 @@ abstract class BaseApplication : Application() {
 
         @JvmStatic
         val DEBUG: Boolean by lazy {
-            (instance.applicationInfo != null && (instance.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0)
+            (INSTANCE.applicationInfo != null && (INSTANCE.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0)
         }
 
         @JvmStatic
@@ -55,8 +58,8 @@ abstract class BaseApplication : Application() {
 
         @JvmStatic
         val VERSION_INFO: Triple<Long, String, String> by lazy { // versionCode, versionName, packageName
-            val packageManager = instance.packageManager
-            val packageName = instance.packageName
+            val packageManager = INSTANCE.packageManager
+            val packageName = INSTANCE.packageName
             val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
             } else {

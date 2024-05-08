@@ -21,7 +21,8 @@ import com.google.samples.apps.sunflower.ui.Shapes
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
-    tertiary = Pink80
+    tertiary = Pink80,
+    surfaceTint = Color.White, // todo 颜色叠加(影响弹窗底色，及所有有 Elevation 高度的控件)；参考：[LocalTonalElevationEnabled] [Modifier.surface]
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -29,7 +30,8 @@ private val LightColorScheme = lightColorScheme(
     secondary = PurpleGrey40,
     tertiary = Pink40,
     surface = Color.White,
-    background = Color.White
+    background = Color.White,
+    surfaceTint = Color.White, // todo 同上
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

@@ -13,7 +13,7 @@ object ApplicationScopeViewModelProvider : ViewModelStoreOwner {
     val mApplicationProvider: ViewModelProvider by lazy {
         ViewModelProvider(
             ApplicationScopeViewModelProvider,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(BaseApplication.instance)
+            ViewModelProvider.AndroidViewModelFactory.getInstance(BaseApplication.INSTANCE)
         )
     }
 }
