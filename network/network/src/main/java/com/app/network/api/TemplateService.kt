@@ -14,7 +14,7 @@ import retrofit2.http.POST
 interface TemplateService {
 
     @HTTP(method = "GET", path = PATH.GET_USER_INFO, hasBody = false)
-    suspend fun getDetailTemplate(): BaseResult<List<String>>
+    suspend fun getDetailTemplate(): BaseResult<Any?>
 
     @POST(PATH.GET_USER_INFO)
     suspend fun getDetailTemplateX(@Body requestBody: RequestBody): BaseResult<List<String>>

@@ -8,7 +8,6 @@ data class BaseResult<T>(
     val msg: String = "",
     val data: T? = null,
     val success: Boolean = false,
-    val id:String = ""
 ) {
     val isSuccess = code == 200
 }

@@ -48,3 +48,31 @@
 ## 启动页 SplashScreen
 
 修改 themes/Theme.SplashScreen.MySplash
+
+
+## 网络请求监控
+
+对所有的网络请求进行监控，当请求失败时，进行上报；
+我们的愿景是能将请求的信息，请求参数，错误信息，都进行上报。
+发现寻找一个切入点是比较困难的。
+
+现在的思路有三种方式：
+1. 在网络请求接口类中，返回值依然采用原来的老方式，返回 Call<BaseResult<T>>，这样在处理响应数据时，对 Call 进行统一的处理，同时 Call 中有请求相关的信息；
+2. 通过 addCallAdapterFactory(XXCallAdapter.Factory) 进行自定义返回类型，在自定义 CallAdapter 中对返回类型进行统一封装，同时统一处理网络错误，同时进行错误上报；
+3. 通过对 Retrofit 中默认的 CallAdapter 进行 hook，进行统一的错误上报。
+
+最推荐的时第 2 种方式，但对目前改动较大；现在可以考虑采用第 3 种方式。
+
+第三种方式分析：
+默认的 CallAdapter 可以查看 [retrofit2.Platform] 类。
+
+```java
+  List<? extends CallAdapter.Factory> defaultCallAdapterFactories(
+      @Nullable Executor callbackExecutor) {
+    DefaultCallAdapterFactory executorFactory = new DefaultCallAdapterFactory(callbackExecutor);
+    return hasJava8Types
+        ? asList(CompletableFutureCallAdapterFactory.INSTANCE, executorFactory)
+        : singletonList(executorFactory);
+  }
+```
+通过上面的方法知道，默认采用的是 CompletableFutureCallAdapterFactory.INSTANCE ，且是单例类。

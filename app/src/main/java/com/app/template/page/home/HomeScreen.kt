@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -86,6 +87,12 @@ fun HomeScreen(
                 model = imgAddress,
                 modifier = Modifier.fillMaxWidth().height(120.dp),
             )
+
+            Button(onClick = {
+                viewModel.requestData()
+            }) {
+                Text(text = "kdkdkkdkd")
+            }
 
             WebViewCompose(
                 modifier = Modifier.fillMaxSize(),

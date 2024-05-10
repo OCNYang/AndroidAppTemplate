@@ -29,7 +29,7 @@ class HomeViewModel : ViewModel() {
         requestData()
     }
 
-    private fun requestData() {
+    fun requestData() {
         viewModelScope.launch {
             val data = service.getDetailTemplate(listener = object : CallListener {
                 override fun onError(code: Int?, msg: String?) {

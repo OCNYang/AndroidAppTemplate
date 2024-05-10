@@ -7,5 +7,5 @@ interface TemplateApi {
     fun getTemplate(listener: CallListener? = null): List<String>
 
     // 异步方法，网络请求或查询本地数据
-    suspend fun getDetailTemplate(listener: CallListener? = null): List<String>?
+    suspend fun getDetailTemplate(listener: CallListener? = null): Any?
 }

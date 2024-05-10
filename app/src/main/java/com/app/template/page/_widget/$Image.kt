@@ -1,13 +1,7 @@
 package com.app.base
 
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -17,6 +11,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
+import com.ocnyang.compose_loading.InstaSpinner
 
 @Composable
 fun ImageX(
@@ -29,6 +24,7 @@ fun ImageX(
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
     filterQuality: FilterQuality = DrawScope.DefaultFilterQuality,
+    animatedLoadingDurationMillis: Int = 700,
 ) {
     com.app.base.SubComposeAsyncImage(
         model = model,
@@ -40,10 +36,11 @@ fun ImageX(
         alpha = alpha,
         colorFilter = colorFilter,
         filterQuality = filterQuality,
+        animatedLoadingDurationMillis = animatedLoadingDurationMillis,
         emptyStateContent = { Text(text = "图片地址错误", Modifier.align(Alignment.Center)) },// todo 定制成自己想要的样子
         errorStateContent = { Text(text = "Error", Modifier.align(Alignment.Center)) },// todo
         animatedLoadingStateContent = {
-            CircularProgressIndicator(Modifier.size(25.dp)) // todo
+            InstaSpinner(size = 25.dp) // todo
         }
     )
 }

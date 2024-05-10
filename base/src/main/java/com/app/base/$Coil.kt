@@ -23,21 +23,27 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import coil.compose.SubcomposeAsyncImageScope
 
+private const val EMPTY: Byte = -1
+private const val ERROR: Byte = -2
+private const val LOADING: Byte = -3
+private const val SUCCESS: Byte = 1
+private const val NONE: Byte = 0
+
 @Composable
 fun SubComposeAsyncImage(
     model: Any?,
     contentDescription: String? = model?.toString(),
     modifier: Modifier = Modifier,
-    state: MutableState<Int> = rememberSaveable { // 这里变为数值类型
-        mutableStateOf(0)
+    state: MutableState<Byte> = rememberSaveable {
+        mutableStateOf(NONE)
     },
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
     onState: ((AsyncImagePainter.State) -> Unit)? = {
         state.value = when (it) {
-            AsyncImagePainter.State.Empty -> -1
-            is AsyncImagePainter.State.Error -> -2
-            is AsyncImagePainter.State.Loading -> -3
-            is AsyncImagePainter.State.Success -> 1
+            AsyncImagePainter.State.Empty -> EMPTY
+            is AsyncImagePainter.State.Error -> ERROR
+            is AsyncImagePainter.State.Loading -> LOADING
+            is AsyncImagePainter.State.Success -> SUCCESS
         }
     },
     alignment: Alignment = Alignment.Center,
@@ -45,6 +51,7 @@ fun SubComposeAsyncImage(
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
     filterQuality: FilterQuality = DrawScope.DefaultFilterQuality,
+    animatedLoadingDurationMillis: Int = 700,
     emptyStateContent: @Composable SubcomposeAsyncImageScope.() -> Unit,
     errorStateContent: @Composable SubcomposeAsyncImageScope.() -> Unit,
     loadingStateContent: @Composable SubcomposeAsyncImageScope.() -> Unit = {},
@@ -66,16 +73,16 @@ fun SubComposeAsyncImage(
 ) {
     Box(modifier = Modifier.matchParentSize()) {
         when (state.value) {
-            -1 -> emptyStateContent.invoke(this@SubcomposeAsyncImage)
-            -2 -> errorStateContent.invoke(this@SubcomposeAsyncImage)
-            -3 -> loadingStateContent.invoke(this@SubcomposeAsyncImage)
-            1 -> this@SubcomposeAsyncImage.SubcomposeAsyncImageContent(Modifier.align(Alignment.Center))
+            EMPTY -> emptyStateContent.invoke(this@SubcomposeAsyncImage)
+            ERROR -> errorStateContent.invoke(this@SubcomposeAsyncImage)
+            LOADING -> loadingStateContent.invoke(this@SubcomposeAsyncImage)
+            SUCCESS -> this@SubcomposeAsyncImage.SubcomposeAsyncImageContent(Modifier.align(Alignment.Center))
             else -> placeholderContent.invoke(this@SubcomposeAsyncImage)
         }
         Column(Modifier.matchParentSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
             AnimatedVisibility(
-                visible = state.value == -3,
-                exit = fadeOut(animationSpec = keyframes { durationMillis = 700 }),
+                visible = state.value == LOADING,
+                exit = fadeOut(animationSpec = keyframes { durationMillis = animatedLoadingDurationMillis }),
                 content = animatedLoadingStateContent
             )
         }

@@ -95,7 +95,7 @@ suspend fun <T> requestFlowResponse(
     requestCall: suspend () -> BaseResult<T>?,
     listener: CallListener?
 ): Flow<BaseResult<T>?> {
-    //1.执行请求
+    // 1.执行请求
     val flow = flow {
         // 设置超时时间
         val response = withTimeout(10 * 1000) {
