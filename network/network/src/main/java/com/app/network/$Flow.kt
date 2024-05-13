@@ -3,6 +3,7 @@ package com.app.network
 import android.text.TextUtils
 import com.app.api.CallListener
 import com.app.api.bean.BaseResult
+import com.app.base.LogX
 import com.app.base.showToast
 import com.app.network.error.ApiException
 import com.app.network.error.ExceptionHandler
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
+import kotlin.reflect.jvm.reflect
 
 fun <T> flowEmit(block: suspend () -> T): Flow<T> = flow { emit(block.invoke()) }.flowOn(Dispatchers.IO)
 

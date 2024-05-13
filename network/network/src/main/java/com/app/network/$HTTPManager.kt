@@ -12,13 +12,9 @@ import com.squareup.moshi.DefaultIfNullFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
-import retrofit2.Call
-import retrofit2.CallAdapter
-import retrofit2.Callback
-import retrofit2.Response
+import retrofit2.MyCallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.lang.reflect.Type
 import java.util.concurrent.TimeUnit
 
 object HttpManager {
@@ -27,6 +23,7 @@ object HttpManager {
         Retrofit.Builder()
             .client(initOkHttpClient())
             .baseUrl(PATH.BASE_URL)
+            .addCallAdapterFactory(MyCallAdapterFactory(null)) // todo 不需要注销此行
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             // .addCallAdapterFactory() // todo
             .build()
@@ -51,7 +48,7 @@ object HttpManager {
     }
 
     /**
-     * 初始化OkHttp
+     * 初始化 OkHttp
      */
     private fun initOkHttpClient(): OkHttpClient {
         val build = OkHttpClient.Builder()
