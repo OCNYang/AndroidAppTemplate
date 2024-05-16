@@ -21,8 +21,8 @@ class FilterNullValuesFromListAdapter<T : Any> private constructor(private val d
 
     companion object {
         @JvmStatic
-        fun <T : Any> newFactory(type: Class<T>): JsonAdapter.Factory {
-            return object : JsonAdapter.Factory {
+        fun <T : Any> newFactory(type: Class<T>): Factory {
+            return object : Factory {
                 override fun create(
                     requestedType: Type,
                     annotations: Set<Annotation>,
@@ -64,8 +64,8 @@ class FilterNullStringFromListAdapter<T : Any> private constructor(private val d
 
     companion object {
         @JvmStatic
-        fun <T : Any> newFactory(type: Class<T>): JsonAdapter.Factory {
-            return object : JsonAdapter.Factory {
+        fun <T : Any> newFactory(type: Class<T>): Factory {
+            return object : Factory {
                 override fun create(
                     requestedType: Type,
                     annotations: Set<Annotation>,

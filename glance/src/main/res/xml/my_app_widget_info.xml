@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><!-- [START android_compose_glance_providerxml] -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/glance_desc"
+    android:initialLayout="@layout/glance_default_loading_layout"
+    android:minWidth="110dp"
+    android:minHeight="69dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="69dp"
+    android:previewImage="@drawable/ic_empty"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="4"
+    android:targetCellHeight="2"
+    android:updatePeriodMillis="10000"
+    android:widgetCategory="home_screen" /><!-- [END android_compose_glance_providerxml] -->

@@ -26,7 +26,7 @@ fun ImageX(
     filterQuality: FilterQuality = DrawScope.DefaultFilterQuality,
     animatedLoadingDurationMillis: Int = 700,
 ) {
-    com.app.base.SubComposeAsyncImage(
+    SubComposeAsyncImage(
         model = model,
         contentDescription = contentDescription,
         modifier = modifier,

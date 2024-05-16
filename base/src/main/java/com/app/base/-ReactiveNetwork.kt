@@ -27,7 +27,7 @@ object NetworkChangeListener {
     @SuppressLint("CheckResult")
     fun init(
         context: Context,
-        onChange: (Connectivity) -> Unit = { Log.d("NetworkChangeListener", "event network: ${it.toString()}") }
+        onChange: (Connectivity) -> Unit = { Log.d("NetworkChangeListener", "event network: $it") }
     ) {
         ReactiveNetwork.observeNetworkConnectivity(context.applicationContext)
             .subscribeOn(Schedulers.io())

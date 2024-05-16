@@ -36,8 +36,8 @@ class DefaultOnDataMismatchAdapter<T> private constructor(
      */
     companion object {
         @JvmStatic
-        fun <T> newFactory(type: Class<T>, defaultValue: T?): JsonAdapter.Factory {
-            return object : JsonAdapter.Factory {
+        fun <T> newFactory(type: Class<T>, defaultValue: T?): Factory {
+            return object : Factory {
                 override fun create(
                     requestedType: Type,
                     annotations: Set<Annotation>,

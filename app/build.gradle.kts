@@ -63,6 +63,7 @@ dependencies {
 
     implementation(project(":base"))
     implementation(project(":api"))
+    implementation(project(":glance"))
     runtimeOnly(project(":network"))
 
 //    implementation(libs.androidx.constraintlayout.compose)

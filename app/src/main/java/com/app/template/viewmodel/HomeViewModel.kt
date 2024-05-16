@@ -36,13 +36,6 @@ class HomeViewModel : ViewModel() {
                     showToast("请求错误[$code]：$msg")
                 }
 
-                override fun onCallStart() {
-                    super.onCallStart()
-                }
-
-                override fun onCallEnd() {
-                    super.onCallEnd()
-                }
             })
             LogX.e("接口返回：$data")
         }
