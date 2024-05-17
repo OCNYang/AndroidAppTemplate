@@ -8,11 +8,11 @@ import com.app.network.api.PATH
 import com.app.network.interceptor.CookiesInterceptor
 import com.app.network.interceptor.HeaderInterceptor
 import com.app.network.interceptor.logInterceptor
+import com.app.network.monitor.NetworkEventListener
 import com.squareup.moshi.DefaultIfNullFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
-import retrofit2.MyCallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
@@ -23,7 +23,6 @@ object HttpManager {
         Retrofit.Builder()
             .client(initOkHttpClient())
             .baseUrl(PATH.BASE_URL)
-            .addCallAdapterFactory(MyCallAdapterFactory(null)) // todo 不需要注销此行
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             // .addCallAdapterFactory() // todo
             .build()
@@ -55,6 +54,8 @@ object HttpManager {
             .connectTimeout(12, TimeUnit.SECONDS)
             .writeTimeout(12, TimeUnit.SECONDS)
             .readTimeout(12, TimeUnit.SECONDS)
+
+        build.eventListener(NetworkEventListener())
 
         build.addInterceptor(CookiesInterceptor())
         build.addInterceptor(HeaderInterceptor())
