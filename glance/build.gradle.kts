@@ -5,10 +5,10 @@ plugins {
 
 android {
     namespace = "com.app.glance"
-    compileSdk = 34
+    compileSdk = libs.versions.targetSDK.get().toInt()
 
     defaultConfig {
-        minSdk = 26
+        minSdk = libs.versions.minSDK.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
