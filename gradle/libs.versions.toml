@@ -1,8 +1,7 @@
 [versions]
-# 下面3个版本要保持一致，不然会不兼容
-kotlin = "1.9.24"
-composeCompiler = "1.5.14"
-googleKsp = "1.9.24-1.0.20"
+# 下面2个版本要保持一致，不然会不兼容
+kotlin = "2.0.0-RC3"
+googleKsp = "2.0.0-RC3-1.0.20"
 minSDK = "26"
 targetSDK = "34"
 agp = "8.3.2"
@@ -71,4 +70,5 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 gradlePluginPublish = { id = "com.gradle.plugin-publish", version.ref = "gradlePluginPublish" }
 googleKsp = { id = "com.google.devtools.ksp", version.ref = "googleKsp" }
+compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
