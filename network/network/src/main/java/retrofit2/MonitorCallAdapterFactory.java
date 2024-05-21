@@ -97,22 +97,18 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
                                                         Request request = okHttpCall.request();
                                                         Exception exception = (Exception) args[1];
 
-                                                        if (simpleErrorHandler != null) {
-                                                            simpleErrorHandler.invoke(request.toString(), exception);
-                                                        }
-                                                        if (errorHandler != null) {
-                                                            Field rawCall = OkHttpCall.class.getDeclaredField("rawCall");
-                                                            rawCall.setAccessible(true);
-                                                            int rawCallHashCode = 0;
-                                                            try {
-                                                                rawCallHashCode = ((okhttp3.Call) rawCall.get(okHttpCall)).hashCode();
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            errorHandler.invoke(request.toString(), exception, rawCallHashCode);
+                                                        errorHandler(request, exception, okHttpCall);
+                                                    }
+                                                    if (method.getName().equals("onResponse") && args.length == 2 && args[0] instanceof OkHttpCall && args[1] instanceof retrofit2.Response) {
+                                                        OkHttpCall okHttpCall = (OkHttpCall) args[0];
+                                                        Request request = okHttpCall.request();
+                                                        retrofit2.Response response = (retrofit2.Response) args[1];
+
+                                                        if (response.code() != 200) {
+                                                            errorHandler(request, new HttpException(response), okHttpCall);
                                                         }
                                                     }
-                                                    return method.invoke(callback, args); // todo 这里的 HTTP 错误无法记录，应该是 try catch 造成的。
+                                                    return method.invoke(callback, args);
                                                 }
                                             });
 
@@ -129,5 +125,22 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
                 }
             }
         };
+    }
+
+    private void errorHandler(Request request, Exception exception, OkHttpCall okHttpCall) throws NoSuchFieldException {
+        if (simpleErrorHandler != null) {
+            simpleErrorHandler.invoke(request.toString(), exception);
+        }
+        if (errorHandler != null) {
+            Field rawCall = OkHttpCall.class.getDeclaredField("rawCall");
+            rawCall.setAccessible(true);
+            int rawCallHashCode = 0;
+            try {
+                rawCallHashCode = ((okhttp3.Call) rawCall.get(okHttpCall)).hashCode();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            errorHandler.invoke(request.toString(), exception, rawCallHashCode);
+        }
     }
 }
