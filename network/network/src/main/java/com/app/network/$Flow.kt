@@ -104,7 +104,7 @@ suspend fun <T> requestFlowResponse(
             requestCall()
         }
 
-        // 这里判断返回的接口业务错误状态
+        // 这里判断返回的接口业务错误状态：1.接口业务错误状态，2.接口请求成功，但是没有返回约定的格式
         if (response?.isSuccess == false) {
             if (listener == null && !(TextUtils.isEmpty(response.msg))) {
                 showToast("${response.msg}")

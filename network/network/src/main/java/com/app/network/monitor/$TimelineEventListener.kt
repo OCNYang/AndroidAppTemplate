@@ -20,8 +20,12 @@ abstract class TimelineEventListener(
         }.map { it.name to 0L }.toTypedArray())
 ) : EventListener() {
 
+    companion object {
+        const val START = "start"
+    }
+
     init {
-        timeline["start"] = System.currentTimeMillis()
+        timeline[START] = System.currentTimeMillis()
     }
 
     override fun cacheConditionalHit(call: Call, cachedResponse: Response) {

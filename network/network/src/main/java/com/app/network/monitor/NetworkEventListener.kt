@@ -1,23 +1,25 @@
 package com.app.network.monitor
 
-import android.util.Log
+import androidx.collection.SparseArrayCompat
+import com.app.network.getRequestParams
+import com.app.network.inBlackList
 import okhttp3.Call
 import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.Response
-import okio.Buffer
-import java.io.EOFException
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Proxy
-import java.net.URLDecoder
-import java.nio.charset.StandardCharsets
 
 /**
  * 这里是对网络请求的监控，比如dns、连接、请求各阶段的时间
  * 这里的网络异常只能监控到 HTTP 异常
+ *
+ * @param justLogError 是否只记录错误
+ * ⚠️ 如果只记录错误，当遇到非 HTTP 异常时（比如 JsonDataException）时，将会丢失这里监控的请求信息。
+ * 因为 部分错误 是在网络请求结束后产生的（比如 数据解析）。
  */
-class NetworkEventListener : TimelineEventListener() {
+class NetworkEventListener(private val justLogError: Boolean = false) : TimelineEventListener() {
     private val mHttpData = HttpData(timeline = timeline)
 
     override fun connectEnd(call: Call, inetSocketAddress: InetSocketAddress, proxy: Proxy, protocol: Protocol?) {
@@ -25,6 +27,7 @@ class NetworkEventListener : TimelineEventListener() {
         mHttpData.proxy = proxy.toString()
         mHttpData.inetSocketAddress = inetSocketAddress.toString()
         mHttpData.protocol = protocol?.toString()
+        mHttpData.rawCallHashCode = call.hashCode()
     }
 
     override fun requestHeadersEnd(call: Call, request: Request) {
@@ -63,7 +66,7 @@ class NetworkEventListener : TimelineEventListener() {
         }
 
         mHttpData.errorMsg = stringBuilder.toString()
-        log("callFailed")
+        log()
     }
 
     override fun callEnd(call: Call) {
@@ -71,76 +74,31 @@ class NetworkEventListener : TimelineEventListener() {
         if (inBlackList(mHttpData.url)) {
             return
         }
-        log("callEnd")
+        if (!justLogError) {
+            log()
+        }
     }
 
-    private fun log(message: String) {
-        // todo
-        Log.e(TAG, "$message ${timeline}")
-        Log.e(TAG, "${mHttpData.string()}")
+    private fun log() {
+        NETWORK_MONITOR_LOGS_LIST.put(mHttpData.rawCallHashCode, mHttpData)
     }
 
     companion object {
-        const val TAG = "NetworkMonitor"
-
-        private val UTF8 = StandardCharsets.UTF_8
-
-        @Throws(Exception::class)
-        private fun getRequestParams(request: Request): String? {
-            val requestBody = request.body
-            val hasRequestBody = requestBody != null
-            if (!hasRequestBody) {
-                return null
-            }
-            val buffer = Buffer()
-            requestBody!!.writeTo(buffer)
-            var charset = UTF8
-            val contentType = requestBody.contentType()
-            if (contentType != null) {
-                charset = contentType.charset(UTF8)
-            }
-            var param: String? = null
-            if (isPlaintext(buffer) && charset != null) {
-                val string = String(buffer.readByteArray(), charset)
-                try {
-                    param = URLDecoder.decode(string, "UTF-8")
-                } catch (e: IllegalArgumentException) {
-                    param = replacer(string)
-                }
-            }
-            return param
-        }
-        private fun isPlaintext(buffer: Buffer): Boolean {
-            return try {
-                val prefix = Buffer()
-                val byteCount = if (buffer.size < 64) buffer.size else 64
-                buffer.copyTo(prefix, 0, byteCount)
-                for (i in 0..15) {
-                    if (prefix.exhausted()) {
-                        break
-                    }
-                    val codePoint = prefix.readUtf8CodePoint()
-                    if (Character.isISOControl(codePoint) && !Character.isWhitespace(codePoint)) {
-                        return false
+        @JvmStatic
+        val NETWORK_MONITOR_LOGS_LIST: SparseArrayCompat<HttpData> = SparseArrayCompat()
+            get() {
+                if (field.size() > 99) {
+                    val currentTime = System.currentTimeMillis()
+                    for (i in 0 until field.size()) {
+                        val key = field.keyAt(i)
+                        val value = field.valueAt(i)
+                        if (currentTime - value.startTime > 1000 * 60 * 5) {
+                            field.remove(key)
+                        }
                     }
                 }
-                true
-            } catch (e: EOFException) {
-                // Truncated UTF-8 sequence.
-                false
+                return field
             }
-        }
     }
 }
 
-fun replacer(outBuffer: String): String {
-    var data = outBuffer
-    try {
-        data = data.replace("%(?![0-9a-fA-F]{2})".toRegex(), "%25")
-        data = data.replace("\\+".toRegex(), "%2B")
-        data = URLDecoder.decode(data, "utf-8")
-    } catch (e: java.lang.Exception) {
-        e.printStackTrace()
-    }
-    return data
-}

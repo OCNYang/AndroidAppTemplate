@@ -8,6 +8,7 @@ data class HttpData(
     var request: String = "",
     var response: String = "",
     var proxy: String? = null,
+    var rawCallHashCode: Int = 0,
     var inetSocketAddress: String? = null,
     var protocol: String? = null,
     var timeline: HashMap<String, Long> = hashMapOf(),
@@ -33,10 +34,12 @@ data class HttpData(
     // Http状态码 200 ,404
     var responseCode: Int? = null,
 ) {
-    //DNS的耗时
+    val startTime: Long = timeline[TimelineEventListener.START] ?: 0
+
+    // DNS的耗时
     var dnsCost: Long? = timeline[EventListener::dnsEnd.name]?.minus(timeline[EventListener::dnsStart.name] ?: 0)
 
-    //建连耗时
+    // 建连耗时
     var connectCost: Long? = timeline[EventListener::connectEnd.name]?.minus(timeline[EventListener::connectStart.name] ?: 0)
 
     // 服务器响应耗时
@@ -48,7 +51,7 @@ data class HttpData(
     // TraceId,用于全链路监控
     var traceId: String? = null
 
-    //响应头
+    // 响应头
     fun updateByCall(call: Call) {
         schema = call.request().url.scheme
         domain = call.request().url.host
@@ -63,6 +66,7 @@ data class HttpData(
     fun string(): String {
         return "HttpData(${toString()}, dnsCost=$dnsCost, connectCost=$connectCost, responseCost=$responseCost, totalCost=$totalCost, traceId='$traceId', isFirst=$isFirst)"
     }
+
 
     fun toBundle(): Bundle {
         return Bundle().apply {

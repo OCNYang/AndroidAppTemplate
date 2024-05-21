@@ -1,5 +1,6 @@
 package com.app.network
 
+import com.app.base.LogX
 import com.app.network.adapter.BigDecimalAdapter
 import com.app.network.adapter.DefaultOnDataMismatchAdapter
 import com.app.network.adapter.FilterNullStringFromListAdapter
@@ -8,11 +9,14 @@ import com.app.network.api.PATH
 import com.app.network.interceptor.CookiesInterceptor
 import com.app.network.interceptor.HeaderInterceptor
 import com.app.network.interceptor.logInterceptor
+import com.app.network.monitor.HttpData
 import com.app.network.monitor.NetworkEventListener
+import com.app.network.monitor.NetworkEventListener.Companion.NETWORK_MONITOR_LOGS_LIST
 import com.squareup.moshi.DefaultIfNullFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
+import retrofit2.MonitorCallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
@@ -24,6 +28,7 @@ object HttpManager {
             .client(initOkHttpClient())
             .baseUrl(PATH.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(MonitorCallAdapterFactory(null, Report))
             // .addCallAdapterFactory() // todo
             .build()
     }
@@ -55,7 +60,7 @@ object HttpManager {
             .writeTimeout(12, TimeUnit.SECONDS)
             .readTimeout(12, TimeUnit.SECONDS)
 
-        build.eventListener(NetworkEventListener())
+        build.eventListener(NetworkEventListener(justLogError = false))
 
         build.addInterceptor(CookiesInterceptor())
         build.addInterceptor(HeaderInterceptor())

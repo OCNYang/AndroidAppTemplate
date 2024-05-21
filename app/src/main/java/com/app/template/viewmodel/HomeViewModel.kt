@@ -35,7 +35,6 @@ class HomeViewModel : ViewModel() {
                 override fun onError(code: Int?, msg: String?) {
                     showToast("请求错误[$code]：$msg")
                 }
-
             })
             LogX.e("接口返回：$data")
         }
