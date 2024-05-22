@@ -84,21 +84,36 @@ class NetworkEventListener(private val justLogError: Boolean = false) : Timeline
     }
 
     companion object {
+        var LOGS_SIZE_THRESHOLD = 99
+        var LOGS_OUT_TIME = 1000 * 60 * 5
+
         @JvmStatic
-        val NETWORK_MONITOR_LOGS_LIST: SparseArrayCompat<HttpData> = SparseArrayCompat()
+        private val NETWORK_MONITOR_LOGS_LIST: SparseArrayCompat<HttpData> = SparseArrayCompat()
             get() {
-                if (field.size() > 99) {
+                if (field.size() > LOGS_SIZE_THRESHOLD) {
                     val currentTime = System.currentTimeMillis()
                     for (i in 0 until field.size()) {
                         val key = field.keyAt(i)
                         val value = field.valueAt(i)
-                        if (currentTime - value.startTime > 1000 * 60 * 5) {
+                        if (currentTime - value.startTime > LOGS_OUT_TIME) {
                             field.remove(key)
                         }
                     }
                 }
                 return field
             }
+
+        @JvmStatic
+        fun findMonitorLogsByRawCallHashCode(rawCallHashCode: Int): HttpData? {
+            val httpData = NETWORK_MONITOR_LOGS_LIST[rawCallHashCode]
+            NETWORK_MONITOR_LOGS_LIST.remove(rawCallHashCode)
+            return httpData
+        }
+
+        @JvmStatic
+        fun clearMonitorLogs() {
+            NETWORK_MONITOR_LOGS_LIST.clear()
+        }
     }
 }
 

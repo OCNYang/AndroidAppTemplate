@@ -9,6 +9,9 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 
+/**
+ *  POST 请求时，一些对参数封装的方法拓展
+ */
 fun JSONObject.toOKHttpRequestBody() = toString().toRequestBody("application/json; charset=utf-8".toMediaType())
 
 fun convert2RequestBody(vararg pairs: Pair<String, Any>): RequestBody {

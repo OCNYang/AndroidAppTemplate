@@ -2,6 +2,8 @@ package retrofit2;
 
 import androidx.annotation.Nullable;
 
+import com.app.network.error.ExceptionHandler;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
@@ -103,7 +105,6 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
                                                         OkHttpCall okHttpCall = (OkHttpCall) args[0];
                                                         Request request = okHttpCall.request();
                                                         retrofit2.Response response = (retrofit2.Response) args[1];
-
                                                         if (response.code() != 200) {
                                                             errorHandler(request, new HttpException(response), okHttpCall);
                                                         }
@@ -128,6 +129,7 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
     }
 
     private void errorHandler(Request request, Exception exception, OkHttpCall okHttpCall) throws NoSuchFieldException {
+
         if (simpleErrorHandler != null) {
             simpleErrorHandler.invoke(request.toString(), exception);
         }

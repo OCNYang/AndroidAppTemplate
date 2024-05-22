@@ -9,9 +9,7 @@ import com.app.network.api.PATH
 import com.app.network.interceptor.CookiesInterceptor
 import com.app.network.interceptor.HeaderInterceptor
 import com.app.network.interceptor.logInterceptor
-import com.app.network.monitor.HttpData
 import com.app.network.monitor.NetworkEventListener
-import com.app.network.monitor.NetworkEventListener.Companion.NETWORK_MONITOR_LOGS_LIST
 import com.squareup.moshi.DefaultIfNullFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -28,8 +26,7 @@ object HttpManager {
             .client(initOkHttpClient())
             .baseUrl(PATH.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(MonitorCallAdapterFactory(null, Report))
-            // .addCallAdapterFactory() // todo
+            .addCallAdapterFactory(MonitorCallAdapterFactory(null, Report)) // 用于监控网络请求错误，以用来上报埋点
             .build()
     }
 
@@ -60,7 +57,7 @@ object HttpManager {
             .writeTimeout(12, TimeUnit.SECONDS)
             .readTimeout(12, TimeUnit.SECONDS)
 
-        build.eventListener(NetworkEventListener(justLogError = false))
+        build.eventListener(NetworkEventListener(justLogError = false)) // 用来记录网络请求历史
 
         build.addInterceptor(CookiesInterceptor())
         build.addInterceptor(HeaderInterceptor())

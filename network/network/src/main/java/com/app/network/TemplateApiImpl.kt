@@ -21,8 +21,8 @@ class TemplateApiImpl : TemplateApi {
     override suspend fun getDetailTemplate(listener: CallListener?): Any? {
         val data = requestFlow(
             requestCall = {
-//                service.getDetailTemplate()
-                service.getDetailTemplateX(convert2RequestBody("a" to "b"))
+                service.getDetailTemplate()
+//                service.getDetailTemplateX(convert2RequestBody("a" to "b"))
             },
             listener = listener,
         )
