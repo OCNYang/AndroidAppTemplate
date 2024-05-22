@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.app.base.BaseActivity
 import com.app.base.BaseApplication
+import com.app.glance.shortcut.buildAuthorShortcut
 import com.app.template.page.TemplateApp
 import com.app.template.ui.theme.AndroidAppTemplateTheme
 
@@ -19,6 +20,7 @@ class MainActivity : BaseActivity() {
         }
         super.onCreate(savedInstanceState)
         BaseApplication.MAIN_ACTIVITY = this
+        buildAuthorShortcut(this)
 
         setContent {
             AndroidAppTemplateTheme(dynamicColor = false) {

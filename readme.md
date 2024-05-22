@@ -18,7 +18,8 @@
 
 - [x] 桌面小部件
 - [ ] 应用图标小角标
-- [ ] 应用图标长按菜单
+- [x] 应用图标长按菜单
+- [x] 系统快捷设置
 - [ ] 分享图片、文本接收
 - [ ] 网站打开接收
 
@@ -61,7 +62,7 @@
 
 ## 网络请求监控
 
-对所有的网络请求进行监控，当请求失败时，进行上报；
+～～对所有的网络请求进行监控，当请求失败时，进行上报；
 我们的愿景是能将请求的信息，请求参数，错误信息，都进行上报。
 发现寻找一个切入点是比较困难的。
 
@@ -84,4 +85,7 @@
         : singletonList(executorFactory);
   }
 ```
-通过上面的方法知道，默认采用的是 CompletableFutureCallAdapterFactory.INSTANCE ，且是单例类。
+通过上面的方法知道，默认采用的是 CompletableFutureCallAdapterFactory.INSTANCE ，且是单例类。～～
+
+* 最终方案
+ ``.addCallAdapterFactory(MonitorCallAdapterFactory(null, Report))``

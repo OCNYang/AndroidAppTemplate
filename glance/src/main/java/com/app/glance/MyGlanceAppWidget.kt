@@ -64,7 +64,6 @@ class MyGlanceAppWidget : GlanceAppWidget() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-
             val context = LocalContext.current
             val url = getImageUrl(LocalSize.current)
             val scope = rememberCoroutineScope()

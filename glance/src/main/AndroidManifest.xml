@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <application>
-        <receiver android:name=".GlanceReceiver"
+        <receiver
+            android:name=".GlanceReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -10,5 +12,15 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/my_app_widget_info" />
         </receiver>
+        <service
+            android:name=".tile_service.MyTileService"
+            android:exported="true"
+            android:icon="@android:drawable/ic_menu_today"
+            android:label="@string/my_default_tile_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>

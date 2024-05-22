@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="glance_desc">Glance Test</string>
+
+    <string name="compose_shortcut_short_label">打开应用</string>
+    <string name="compose_shortcut_long_label">这里一个打开应用的入口</string>
+    <string name="compose_disabled_message">此功能已弃用</string>
+
+    <string name="my_default_tile_label">关于作者</string>
 </resources>
