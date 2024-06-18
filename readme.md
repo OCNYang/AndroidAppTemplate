@@ -16,7 +16,7 @@
 * WebView
 
 
-- [x] 桌面小部件
+- [x] 桌面小部件 // 比如小米，需要在小米开放平台注册成功后，小部件才能显示，不然入口将会很深。
 - [ ] 应用图标小角标
 - [x] 应用图标长按菜单
 - [x] 系统快捷设置
@@ -34,6 +34,13 @@
 ## 权限申请：XXPermissions
 
 [文档](https://github.com/getActivity/XXPermissions)
+
+**compose 官方权限库**：[com.google.accompanist:accompanist-permissions](https://google.github.io/accompanist/permissions/)
+
+## google.accompanist 库不错的库
+
+* 占位符：UI 渲染完成前，显示占位UI
+* 自定义布局：屏幕上定位两个插槽、窗格
 
 ## 网络监控
 
@@ -89,3 +96,17 @@
 
 * 最终方案
  ``.addCallAdapterFactory(MonitorCallAdapterFactory(null, Report))``
+
+
+云真机列表：
+
+● OPPO 远程真机平台：https://open.oppomobile.com/octpcloud/octpcloud/index.html#/?source=open_manage_zhenji
+● vivo 云真机：https://dev.vivo.com.cn/vcl/#/remote/device/list
+● 华为 云调试：https://developer.huawei.com/consumer/cn/service/josp/agc/handleAllianceLogin.html?_=20240422113136
+● 荣耀 云调试（远程真机）：https://developer.honor.com/cn/manageCenter/app/E00012?~id=41
+● 小米 远程真机租用：https://testit.miui.com/remote?cUserId=CIyBxfZ2GKa8cupuUvn_V7G-4BE
+
+## 关于 Notification 的坑
+消息通知现在需要设置 channel ,且设置后再次变更无效（即和第一次设置的配置保持一致），需卸载重装后才能生效。
+这一点要注意。所以，和通道相关的，比如名字、声音、震动等等配置，不会因重新运行代码而重置，需卸载重装或采用新的通道 ID。
+
