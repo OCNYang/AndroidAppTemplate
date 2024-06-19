@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.app.template.R
+import com.app.template.page.detail.DetailScreen
 import com.app.template.page.home.HomeScreen
 
 @Composable
@@ -29,14 +30,20 @@ fun SunFlowerNavHost(
         composable(route = ScreenRoute.Home.route) {
             HomeScreen(
                 onPlantClick = {
-                    navController.navigate(
-                        ScreenRoute.PlantDetail.createRoute(
-                            plantId = "id"
-                        )
-                    )
+                    navController.navigate(it)
+//                    navController.navigate(
+//                        ScreenRoute.PlantDetail.createRoute(
+//                            plantId = "id"
+//                        )
+//                    )
                 }
             )
         }
+
+        composable(route = ScreenRoute.Detail.route) {
+            DetailScreen()
+        }
+
 //
 //        composable(
 //            route = Screen.PlantDetail.route,

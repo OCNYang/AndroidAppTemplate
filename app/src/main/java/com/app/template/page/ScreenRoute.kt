@@ -9,6 +9,7 @@ sealed class ScreenRoute(
     val navArguments: List<NamedNavArgument> = emptyList()
 ) {
     data object Home : ScreenRoute("home")
+    data object Detail : ScreenRoute("detail")
 
     data object PlantDetail : ScreenRoute(
         route = "plantDetail/{plantId}",
