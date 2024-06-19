@@ -22,6 +22,7 @@ import com.app.base.Log
 import com.app.base.LogX
 import com.app.base.NetworkChangeViewModel
 import com.app.base.appViewModel
+import com.app.base.invoke
 import com.app.template.page.ScreenRoute
 import com.app.template.page._widget.WebViewCompose
 import com.app.template.viewmodel.HomeViewModel
