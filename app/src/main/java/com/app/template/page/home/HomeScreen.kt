@@ -19,15 +19,11 @@ import androidx.compose.ui.unit.dp
 import com.app.base.AppLifecycleViewModel
 import com.app.base.ImageX
 import com.app.base.Log
-import com.app.base.LogX
 import com.app.base.NetworkChangeViewModel
 import com.app.base.appViewModel
-import com.app.base.invoke
 import com.app.template.page.ScreenRoute
 import com.app.template.page._widget.WebViewCompose
 import com.app.template.viewmodel.HomeViewModel
-import com.app.template.viewmodel.LaunchedOnce
-import com.blankj.utilcode.util.ToastUtils
 import com.ocnyang.status_box.StateContainer
 import com.ocnyang.status_box.StatusBox
 import com.ocnyang.status_box.UIState
@@ -56,15 +52,10 @@ fun HomeScreen(
         Log.e("网络：${networkState.value.toString()}")
     }
 
-    LaunchedOnce {
-        ToastUtils.showShort("测试一下：只执行一次")
-        LogX.e("kkkdkdk11111")
-    }
-
-    LaunchedOnce("eee") {
-        LogX.e("kkkdkdk22222")
-    }
-
+//    LaunchedOnce {
+//        ToastUtils.showShort("测试一下：只执行一次")
+//        LogX.e("kkkdkdk11111")
+//    }
 
     Scaffold(
         modifier = modifier,
