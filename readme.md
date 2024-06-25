@@ -27,6 +27,11 @@
 ## 多语言
 如果需要在应用内更改语言，参考：[https://stackoverflow.com/a/40704077/7072452](https://stackoverflow.com/a/40704077/7072452)
 
+## Navigation 导航库
+
+Compose Navigation 封装库：[https://github.com/raamcosta/compose-destinations](https://github.com/raamcosta/compose-destinations)
+
+
 ## AndroidUtilCode doc
 
 [文档](./docs/android_util_code/README.md)
@@ -38,6 +43,8 @@
 **compose 官方权限库**：[com.google.accompanist:accompanist-permissions](https://google.github.io/accompanist/permissions/)
 
 ## google.accompanist 库不错的库
+
+此库目前弃用和迁移说明：[https://github.com/google/accompanist](https://github.com/google/accompanist)
 
 * 占位符：UI 渲染完成前，显示占位UI
 * 自定义布局：屏幕上定位两个插槽、窗格
@@ -118,7 +125,8 @@
 
 Looper.myQueue().addIdleHandler(MyIdleHandler())
 
-日志上报和收集放在这里。
+日志上报和收集放在这里；
+应用先版本更新检测放在这里；
 
 ## 可组合项生命周期的说明
 
