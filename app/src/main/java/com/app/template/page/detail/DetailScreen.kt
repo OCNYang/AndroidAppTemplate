@@ -10,7 +10,10 @@ import androidx.compose.ui.Modifier
 import com.ocnyang.status_box.StateContainer
 import com.ocnyang.status_box.StatusBox
 import com.ocnyang.status_box.UIState
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 
+@Destination<RootGraph>
 @Composable
 fun DetailScreen(
     modifier: Modifier = Modifier.fillMaxSize(),

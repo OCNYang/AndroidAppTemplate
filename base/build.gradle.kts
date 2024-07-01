@@ -86,4 +86,10 @@ dependencies {
 
     // Toast 消息
     // api(libs.toast.utils)
+
+    // 内存泄露
+    debugApi("com.squareup.leakcanary:leakcanary-android:2.14")
+
+    // 后台工作
+    // api("androidx.work:work-runtime-ktx:2.9.0")
 }

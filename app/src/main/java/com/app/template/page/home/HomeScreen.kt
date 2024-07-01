@@ -21,18 +21,23 @@ import com.app.base.ImageX
 import com.app.base.Log
 import com.app.base.NetworkChangeViewModel
 import com.app.base.appViewModel
-import com.app.template.page.ScreenRoute
 import com.app.template.page._widget.WebViewCompose
 import com.app.template.viewmodel.HomeViewModel
 import com.ocnyang.status_box.StateContainer
 import com.ocnyang.status_box.StatusBox
 import com.ocnyang.status_box.UIState
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
+import com.ramcosta.composedestinations.generated.destinations.DetailScreenDestination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
+@Destination<RootGraph>(start = true)
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier.fillMaxSize(),
-    onPlantClick: (String) -> Unit = {},
+    navigator: DestinationsNavigator,
+    // onPlantClick: (String) -> Unit = {},
     viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
     appLifecycleViewModel: AppLifecycleViewModel = appViewModel()
 ) {
@@ -87,7 +92,8 @@ fun HomeScreen(
                 Text(text = "发起网络请求")
             }
             Button(onClick = {
-                onPlantClick.invoke(ScreenRoute.Detail.route)
+                navigator.navigate(DetailScreenDestination())
+                // onPlantClick.invoke(ScreenRoute.Detail.route)
             }) {
                 Text(text = "跳转")
             }

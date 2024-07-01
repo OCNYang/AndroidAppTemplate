@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.compose)
+    alias(libs.plugins.googleKsp)
 }
 
 android {
@@ -80,8 +81,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("androidx.core:core-splashscreen:1.1.0-rc01")
+    implementation(libs.androidx.core.splashscreen)
     implementation("com.github.OCNYang:Compose-SpinKit:1.0.3") {
         exclude("com.github.jitpack")
     }
+
+    // 路由导航封装库
+    implementation(libs.compose.destinations.core)
+    ksp(libs.compose.destinations.ksp)
+    // for bottom sheet destination support, also add
+    implementation(libs.compose.destinations.bottom.sheet)
 }
