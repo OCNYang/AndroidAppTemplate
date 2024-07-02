@@ -93,7 +93,6 @@ fun HomeScreen(
             }
             Button(onClick = {
                 navigator.navigate(DetailScreenDestination())
-                // onPlantClick.invoke(ScreenRoute.Detail.route)
             }) {
                 Text(text = "跳转")
             }

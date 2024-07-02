@@ -30,8 +30,6 @@
 │           │   ├── $Const.kt
 │           │   └── $KeyVal.kt
 │           ├── page
-│           │   ├── ScreenRoute.kt
-│           │   ├── TemplateApp.kt
 │           │   ├── _dialog
 │           │   ├── _page
 │           │   ├── _test
