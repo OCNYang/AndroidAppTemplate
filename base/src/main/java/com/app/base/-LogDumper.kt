@@ -20,9 +20,11 @@ sealed class Result<out R> {
  *
  * 如果需要上报的话，可以通过 Logan 库来记录日志
  *
- * 使用：
+ * @sample
+ * ```
  * val logcatHelper: LogcatHelper by lazy { LogcatHelper.LogcatBuilder().build(this) }
  * logcatHelper.start()
+ * ```
  */
 class LogcatHelper private constructor(
     context: Context,

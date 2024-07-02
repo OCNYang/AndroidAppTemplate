@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.app.base.AppLifecycleViewModel
-import com.app.base.ImageX
+import com.app.template.page._widget.ImageX
 import com.app.base.Log
 import com.app.base.NetworkChangeViewModel
 import com.app.base.appViewModel

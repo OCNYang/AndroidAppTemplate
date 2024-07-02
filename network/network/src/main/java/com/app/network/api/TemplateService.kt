@@ -8,6 +8,8 @@ import retrofit2.http.HTTP
 import retrofit2.http.POST
 
 /**
+ * 接口的请求定义
+ *
  * 这里没有直接继承 [@link com.app.api.TemplateApi]
  * 是因为 [@link com.app.api.TemplateApi] 的方法并不是都是网络请求，参数和网络请求参数也不同
  */

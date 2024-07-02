@@ -24,6 +24,11 @@ object NotificationChannelInfo {
         get() = third
 }
 
+/**
+ * 功能函数：创建 Notification 的信道
+ *
+ * @param notificationChannelConfig 对信道进行的配置；!每个信道一旦创建后配置不再可变
+ */
 fun createNotificationChannel(
     context: Context,
     notificationChannelInfo: Triple<String, String, String>,
@@ -60,10 +65,16 @@ fun createNotificationChannel(
     }
 }
 
+/**
+ * 信道配置快捷方法
+ */
 fun NotificationChannel.buildForegroundServiceConfig() {
     importance = NotificationManager.IMPORTANCE_HIGH
 }
 
+/**
+ * 信道配置快捷方法：推送通知，并自定义铃声
+ */
 fun NotificationChannel.buildPushMsgConfig(context: Context, soundRawRes: Int) {
     val uri = Uri.parse("android.resource://" + context.packageName + "/raw/" + soundRawRes)
     setSound(uri, Notification.AUDIO_ATTRIBUTES_DEFAULT)

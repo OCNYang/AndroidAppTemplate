@@ -12,6 +12,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 
+/**
+ * 应用生命周期的事件流
+ */
 class AppLifecycleViewModel : ViewModel() {
 
     val appLifecycleEventFlow = ProcessLifecycleOwner.get().lifecycle.eventFlow

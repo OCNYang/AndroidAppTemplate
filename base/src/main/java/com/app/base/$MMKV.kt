@@ -4,9 +4,15 @@ import android.os.Parcelable
 import com.tencent.mmkv.MMKV
 
 /**
- * first: key
- * second: value type
- * third: default value
+ * MMKV 的封装类
+ *
+ * 改良：存值和取值的类型不匹配，导致的错误
+ *
+ * @param first: key
+ * @param second: value type
+ * @param third: default value
+ *
+ * @see [com.app.template.comm.MMKVKey]
  */
 typealias MMKVKEY = Triple<String, Class<*>, Any>
 
@@ -38,6 +44,9 @@ fun MMKVKEY.get(): Any {
     }
 }
 
+/**
+ * MMKV 配置拓展方法
+ */
 fun withMMKV(block: MMKV.() -> Unit) {
     block(MMKV.defaultMMKV())
 }

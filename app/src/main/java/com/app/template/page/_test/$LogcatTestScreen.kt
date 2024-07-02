@@ -30,6 +30,10 @@ import com.app.base.logcat.LogcatService
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 
+
+/**
+ * 调试页面：应用运行日志
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination<RootGraph>
 @Composable

@@ -29,6 +29,9 @@ private const val LOADING: Byte = -3
 private const val SUCCESS: Byte = 1
 private const val NONE: Byte = 0
 
+/**
+ * 图片加载函数的统一封装
+ */
 @Composable
 fun SubComposeAsyncImage(
     model: Any?,

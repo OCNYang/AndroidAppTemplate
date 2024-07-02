@@ -19,13 +19,15 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.util.Random
 
+/**
+ * 前台服务：应用运行日志捕获
+ *
+ * @see [com.app.template.page._test.LogcatTestScreen]
+ */
 class LogcatService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         startForeground()
-
         startLogcat(intent?.getStringExtra(COMMAND))
-
-
         return super.onStartCommand(intent, flags, startId)
     }
 

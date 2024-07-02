@@ -11,7 +11,11 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-
+/**
+ * 网络连接状态的事件流
+ *
+ * @see [NetworkChangeListener]
+ */
 class NetworkChangeViewModel : ViewModel() {
     internal val _data: MutableStateFlow<Connectivity?> = MutableStateFlow(null)
     val networkFlow: StateFlow<Connectivity?> = _data
@@ -19,6 +23,8 @@ class NetworkChangeViewModel : ViewModel() {
 
 /**
  * 网络连接断开的提示
+ *
+ * 在应用启动时，初始化 [init]
  */
 object NetworkChangeListener {
     /**

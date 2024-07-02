@@ -10,6 +10,12 @@ import com.ocnyang.status_box.StatusBoxGlobalConfig
 import com.ocnyang.status_box.initDef
 import com.tencent.mmkv.MMKV
 
+/**
+ * Application 的基类
+ *
+ * Application 单例获取 [BaseApplication.INSTANCE]
+ * Activity 单例获取 [BaseApplication.MAIN_ACTIVITY] 应用采用的 compose-UI 所以全局只有一个 Activity
+ */
 abstract class BaseApplication : Application() {
 
     override fun onCreate() {

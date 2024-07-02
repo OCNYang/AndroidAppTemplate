@@ -1,4 +1,4 @@
-package com.app.base
+package com.app.template.page._widget
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -11,8 +11,12 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
+import com.app.base.SubComposeAsyncImage
 import com.ocnyang.compose_loading.InstaSpinner
 
+/**
+ * 图片显示的 Compose 组合项
+ */
 @Composable
 fun ImageX(
     model: Any?,

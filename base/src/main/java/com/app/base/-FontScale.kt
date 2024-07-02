@@ -4,6 +4,11 @@ import android.content.Context
 import android.content.res.Resources
 import android.os.Build
 
+/**
+ * 对应用的字体控制
+ *
+ * 用来禁止跟随系统字体的变更
+ */
 fun Context.configFontScale(fontScale: Float = 1.0f, fontWeight: Int = 0): Context {
     val configuration = resources.configuration
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

@@ -21,6 +21,9 @@ import com.ramcosta.composedestinations.generated.destinations.TestScreenDestina
 import com.ramcosta.composedestinations.rememberNavHostEngine
 import com.ramcosta.composedestinations.spec.NavHostEngine
 
+/**
+ * 主页面：也是唯一的 Activity
+ */
 @ActivityDestination<RootGraph>
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

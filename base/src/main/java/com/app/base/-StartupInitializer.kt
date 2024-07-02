@@ -8,6 +8,11 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.PrettyFormatStrategy
 import com.tencent.mmkv.MMKV
 
+/**
+ * App StartUp 日志初始化
+ *
+ * 初始化是在 `AndroidManifest.xml` 中
+ */
 class LoggerInitializer : Initializer<Any> {
     override fun create(context: Context): Any {
         LogX.addLogAdapter(object : AndroidLogAdapter(PrettyFormatStrategy.newBuilder().tag(BaseApplication.TAG).build()) {
@@ -22,6 +27,12 @@ class LoggerInitializer : Initializer<Any> {
     }
 }
 
+
+/**
+ * App StartUp MMKV 初始化
+ *
+ * 初始化是在 `AndroidManifest.xml` 中
+ */
 class MMKVInitializer : Initializer<MMKV> {
     override fun create(context: Context): MMKV {
         val mmkvRootDir = MMKV.initialize(context)
@@ -34,6 +45,12 @@ class MMKVInitializer : Initializer<MMKV> {
     }
 }
 
+
+/**
+ * App StartUp WebView X5 初始化
+ *
+ * 初始化是在 `AndroidManifest.xml` 中
+ */
 class X5Initializer : Initializer<X5> {
     override fun create(context: Context): X5 {
         X5.init(context)

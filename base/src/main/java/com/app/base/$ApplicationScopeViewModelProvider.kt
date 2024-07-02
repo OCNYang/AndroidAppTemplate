@@ -6,6 +6,16 @@ import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import com.app.base.ApplicationScopeViewModelProvider.mApplicationProvider
 
+/**
+ * 功能函数：生成具有全局生命周期的 ViewModel
+ *
+ * @sample `val viewModel:XViewModel = appViewModel()`
+ *
+ */
+inline fun <reified VM : ViewModel> appViewModel(): VM {
+    return mApplicationProvider[VM::class.java]
+}
+
 object ApplicationScopeViewModelProvider : ViewModelStoreOwner {
     override val viewModelStore: ViewModelStore
         get() = ViewModelStore()
@@ -16,9 +26,4 @@ object ApplicationScopeViewModelProvider : ViewModelStoreOwner {
             ViewModelProvider.AndroidViewModelFactory.getInstance(BaseApplication.INSTANCE)
         )
     }
-}
-
-
-inline fun <reified VM : ViewModel> appViewModel(): VM {
-    return mApplicationProvider[VM::class.java]
 }

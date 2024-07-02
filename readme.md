@@ -12,6 +12,135 @@
     └── webview-x5
 ```
 
+```
+.
+├── aop
+│   └── src/main/java
+│       └── com.app.aop
+│           ├── GITMPlugin.kt
+│           └── click
+│               ├── ComposeClickClassVisitorFactory.kt
+│               └── ComposeClickConfig.kt
+├── app
+│   └── src/main/java
+│       └── com.app.template
+│           ├── MainActivity.kt
+│           ├── MyApplication.kt
+│           ├── comm
+│           │   ├── $Const.kt
+│           │   └── $KeyVal.kt
+│           ├── page
+│           │   ├── ScreenRoute.kt
+│           │   ├── TemplateApp.kt
+│           │   ├── _dialog
+│           │   ├── _page
+│           │   ├── _test
+│           │   │   ├── $LogcatTestScreen.kt
+│           │   │   └── $TestScreen.kt
+│           │   ├── _widget
+│           │   │   ├── $Image.kt
+│           │   │   └── $WebView.kt
+│           │   ├── detail
+│           │   │   └── DetailScreen.kt
+│           │   └── home
+│           │       ├── HomeScreen.kt
+│           │       └── HomeView.kt
+│           ├── ui
+│           │   └── theme
+│           │       ├── Color.kt
+│           │       ├── Shapes.kt
+│           │       ├── Theme.kt
+│           │       └── Type.kt
+│           └── viewmodel
+│               ├── -LaunchedOnceViewModel.kt
+│               ├── -LifecycleViewModel.kt
+│               └── HomeViewModel.kt
+├── base
+│   └── src/main/java
+│       └── com.app.base
+│           ├── $ApplicationScopeViewModelProvider.kt
+│           ├── $Coil.kt
+│           ├── $Func.kt
+│           ├── $Log.kt
+│           ├── $MMKV.kt
+│           ├── $NamedCodeBlock.kt
+│           ├── $NotificationChannelCreator.kt
+│           ├── $Toast.kt
+│           ├── -AppLifecycleListener.kt
+│           ├── -FontScale.kt
+│           ├── -LogDumper.kt
+│           ├── -ReactiveNetwork.kt
+│           ├── -StartupInitializer.kt
+│           ├── BaseActivity.kt
+│           ├── BaseApplication.kt
+│           └── logcat
+│               └── $LogcatService.kt
+├── glance
+│   └── src/main/java
+│       └── com.app.glance
+│           ├── GlanceReceiver.kt
+│           ├── MyGlanceAppWidget.kt
+│           ├── shortcut
+│           │   └── Shortcut.kt
+│           └── tile_service
+│               └── MyTileService.kt
+├── network
+│   ├── api
+│   │   └── src/main/java
+│   │       └── com.app.api
+│   │           ├── CallListener.kt
+│   │           ├── TemplateApi.kt
+│   │           └── bean
+│   │               └── $BaseBean.kt
+│   └── network
+│       └── src
+│           └── main
+│               ├── java
+│               │   ├── com.app.network
+│               │   │   ├── $Flow.kt
+│               │   │   ├── $HTTPManager.kt
+│               │   │   ├── $Report.kt
+│               │   │   ├── $RequestBody.kt
+│               │   │   ├── $Utils.kt
+│               │   │   ├── TemplateApiImpl.kt
+│               │   │   ├── adapter
+│               │   │   │   ├── BigDecimalAdapter.kt
+│               │   │   │   ├── DefaultIfNullFactory.kt
+│               │   │   │   ├── DefaultOnDataMismatchAdapter.kt
+│               │   │   │   └── FilterNullValuesFromListAdapter.kt
+│               │   │   ├── api
+│               │   │   │   ├── PATH.kt
+│               │   │   │   └── TemplateService.kt
+│               │   │   ├── error
+│               │   │   │   ├── ApiException.kt
+│               │   │   │   ├── ERROR.kt
+│               │   │   │   └── ExceptionHandler.kt
+│               │   │   ├── interceptor
+│               │   │   │   ├── $HttpLoggingInterceptor.kt
+│               │   │   │   ├── $NoNetWorkInterceptor.kt
+│               │   │   │   ├── CookiesInterceptor.kt
+│               │   │   │   ├── HeaderInterceptor.kt
+│               │   │   │   ├── HostSelectionInterceptor.kt
+│               │   │   │   ├── PublicParameterInterceptor.kt
+│               │   │   │   └── RetryInterceptor.kt
+│               │   │   └── monitor
+│               │   │       ├── $TimelineEventListener.kt
+│               │   │       ├── HttpData.kt
+│               │   │       └── NetworkEventListener.kt
+│               │   └── retrofit2
+│               │       └── MonitorCallAdapterFactory.java
+│               └── resources
+│                   └── META-INF
+│                       └── services
+│                           └── com.app.api.TemplateApi
+└── webview
+    └── webview-x5
+        └── src/main/java
+            └── com.app.webview_x5
+                └── $X5.kt
+```
+
+
 * 网络请求整体框架
 * WebView
 
@@ -107,11 +236,11 @@ Compose Navigation 封装库：[https://github.com/raamcosta/compose-destination
 
 云真机列表：
 
-● OPPO 远程真机平台：https://open.oppomobile.com/octpcloud/octpcloud/index.html#/?source=open_manage_zhenji
-● vivo 云真机：https://dev.vivo.com.cn/vcl/#/remote/device/list
-● 华为 云调试：https://developer.huawei.com/consumer/cn/service/josp/agc/handleAllianceLogin.html?_=20240422113136
-● 荣耀 云调试（远程真机）：https://developer.honor.com/cn/manageCenter/app/E00012?~id=41
-● 小米 远程真机租用：https://testit.miui.com/remote?cUserId=CIyBxfZ2GKa8cupuUvn_V7G-4BE
+● OPPO 远程真机平台：https://open.oppomobile.com/octpcloud/octpcloud/index.html#/?source=open_manage_zhenji 
+● vivo 云真机：https://dev.vivo.com.cn/vcl/#/remote/device/list 
+● 华为 云调试：https://developer.huawei.com/consumer/cn/service/josp/agc/handleAllianceLogin.html?_=20240422113136 
+● 荣耀 云调试（远程真机）：https://developer.honor.com/cn/manageCenter/app/E00012?~id=41 
+● 小米 远程真机租用：https://testit.miui.com/remote?cUserId=CIyBxfZ2GKa8cupuUvn_V7G-4BE 
 
 ## 关于 Notification 的坑
 消息通知现在需要设置 channel ,且设置后再次变更无效（即和第一次设置的配置保持一致），需卸载重装后才能生效。
@@ -138,3 +267,5 @@ Looper.myQueue().addIdleHandler(MyIdleHandler())
 上面这些逻辑，如果充分理解 @Composable 的话，理解起来就会很容易。
 
 工具方法，可组合项生命周期的监听： LifecycleEffect
+
+

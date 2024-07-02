@@ -4,6 +4,7 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 
+@Deprecated("已弃用，转为使用 Navigation 三方封装库")
 sealed class ScreenRoute(
     val route: String,
     val navArguments: List<NamedNavArgument> = emptyList()

@@ -2,6 +2,9 @@ package com.app.base
 
 import android.widget.Toast
 
+/**
+ * Toast 的封装函数
+ */
 fun showToast(msg: String) {
     showToast(msg, false)
 }

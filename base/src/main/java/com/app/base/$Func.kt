@@ -10,8 +10,9 @@ import android.net.Uri
  */
 
 /**
- * drawable to Uri
+ * Drawable to Uri
  */
 fun getDrawableUri(context: Context, id: Int): Uri = Uri.parse(context.resources.let {
     "${ContentResolver.SCHEME_ANDROID_RESOURCE}://${it.getResourcePackageName(id)}/${it.getResourceTypeName(id)}/${it.getResourceEntryName(id)}"
 })
+

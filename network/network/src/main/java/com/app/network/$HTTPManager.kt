@@ -1,6 +1,5 @@
 package com.app.network
 
-import com.app.base.LogX
 import com.app.network.adapter.BigDecimalAdapter
 import com.app.network.adapter.DefaultOnDataMismatchAdapter
 import com.app.network.adapter.FilterNullStringFromListAdapter

@@ -13,6 +13,8 @@ import com.app.template.R
 import com.app.template.page.detail.DetailScreen
 import com.app.template.page.home.HomeScreen
 
+
+@Deprecated("已弃用，转为使用 Navigation 三方封装库")
 @Composable
 fun TemplateApp() {
     val navController = rememberNavController()
@@ -21,6 +23,7 @@ fun TemplateApp() {
     )
 }
 
+@Deprecated("已弃用，转为使用 Navigation 三方封装库")
 @Composable
 fun SunFlowerNavHost(
     navController: NavHostController
@@ -83,6 +86,8 @@ fun SunFlowerNavHost(
 
 // Helper function for calling a share functionality.
 // Should be used when user presses a share button/menu item.
+
+@Deprecated("已弃用，转为使用 Navigation 三方封装库")
 private fun createShareIntent(activity: Activity, plantName: String) {
     val shareText = activity.getString(R.string.share_text_plant, plantName)
     val shareIntent = ShareCompat.IntentBuilder(activity)

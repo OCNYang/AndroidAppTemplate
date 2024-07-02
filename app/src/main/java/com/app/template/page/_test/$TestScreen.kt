@@ -31,29 +31,11 @@ import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.LogcatTestScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-
-@Composable
-fun TestFAB(onClick: () -> Unit) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.BottomEnd
-    ) {
-        // todo 当打印日志时，可以显示一个指示
-        SmallFloatingActionButton(
-            modifier = Modifier.padding(15.dp),
-            onClick = onClick,
-            content = {
-                BadgedBox(
-                    badge = {
-                    },
-                    content = {
-                        Icon(Icons.Filled.Info, tint = MaterialTheme.colorScheme.error, contentDescription = "Test")
-                    }
-                )
-            })
-    }
-}
-
+/**
+ * 应用调试页面：入口页面
+ *
+ * 为了方便测试
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination<RootGraph>
 @Composable
@@ -78,5 +60,27 @@ fun TestScreen(navigator: DestinationsNavigator) {
                 modifier = Modifier.clickable { navigator.navigate(LogcatTestScreenDestination()) }
             )
         }
+    }
+}
+
+@Composable
+fun TestFAB(onClick: () -> Unit) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.BottomEnd
+    ) {
+        // todo 当打印日志时，可以显示一个指示
+        SmallFloatingActionButton(
+            modifier = Modifier.padding(15.dp),
+            onClick = onClick,
+            content = {
+                BadgedBox(
+                    badge = {
+                    },
+                    content = {
+                        Icon(Icons.Filled.Info, tint = MaterialTheme.colorScheme.error, contentDescription = "Test")
+                    }
+                )
+            })
     }
 }
