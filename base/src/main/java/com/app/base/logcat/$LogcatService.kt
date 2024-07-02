@@ -12,6 +12,7 @@ import com.app.base.NotificationChannelInfo
 import com.app.base.NotificationChannelInfo.ID
 import com.app.base.buildForegroundServiceConfig
 import com.app.base.createNotificationChannel
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.io.BufferedReader
@@ -27,19 +28,16 @@ import java.util.Random
 class LogcatService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         startForeground()
-        startLogcat(intent?.getStringExtra(COMMAND))
+        startLogcat()
         return super.onStartCommand(intent, flags, startId)
     }
 
     private var logcatProc: Process? = null
     private var reader: BufferedReader? = null
 
-    private fun startLogcat(command: String?) {
-        if (TextUtils.isEmpty(command)) {
-            return
-        }
-
-        val command = buildLogcatCommand(command!!)
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun startLogcat() {
+        val command = buildLogcatCommand()
 
         logcatRunning = true
 
@@ -97,7 +95,7 @@ class LogcatService : Service() {
                 this,
                 Random().nextInt(Int.MAX_VALUE),
                 notification,
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                     ServiceInfo.FOREGROUND_SERVICE_TYPE_SHORT_SERVICE
                 } else {
                     0
@@ -108,7 +106,7 @@ class LogcatService : Service() {
         }
     }
 
-    private fun buildLogcatCommand(command: String): String {
+    private fun buildLogcatCommand(): String {
         return "logcat | grep \"(${android.os.Process.myPid().toString()})\" *:*"
     }
 

@@ -19,9 +19,9 @@ import com.ocnyang.compose_loading.InstaSpinner
  */
 @Composable
 fun ImageX(
+    modifier: Modifier = Modifier,
     model: Any?,
     contentDescription: String? = model?.toString(),
-    modifier: Modifier = Modifier,
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Fit,

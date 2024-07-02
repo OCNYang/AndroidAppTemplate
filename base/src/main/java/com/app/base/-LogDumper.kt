@@ -1,11 +1,19 @@
 package com.app.base
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.*
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.FileReader
+import java.io.IOException
+import java.io.InputStreamReader
+import java.io.PrintWriter
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.nio.file.StandardOpenOption
@@ -103,13 +111,16 @@ class LogcatHelper private constructor(
         val pw = PrintWriter(outputFile)
         val logFiles = logcatDir.listFiles()
 
-        logFiles.sortBy { it.lastModified() }
+        logFiles?.sortBy { it.lastModified() }
 
-        logFiles.forEach { logFile ->
+        logFiles?.forEach { logFile ->
             val br = BufferedReader(FileReader(logFile))
 
             var line: String? = null
-            while ({ line = br.readLine(); line }() != null) {
+            while (run {
+                    line = br.readLine()
+                    line
+                } != null) {
                 pw.println(line)
             }
         }
@@ -117,6 +128,7 @@ class LogcatHelper private constructor(
         pw.close()
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun mergeLogsApi26(sourceDir: String, outputFile: File) {
         val outputFilePath = Paths.get(outputFile.absolutePath)
@@ -137,6 +149,7 @@ class LogcatHelper private constructor(
             }
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     suspend fun getLogFile(): Result<File> {
         stop()
         return withContext(Dispatchers.IO) {
@@ -188,12 +201,11 @@ class LogcatHelper private constructor(
                 e.printStackTrace()
             }
 
-//            command = "logcat | grep \"($pID)\""
-            command = "logcat | grep \"($pID)\" RealImageLoader:I okhttp.OkHttpClient:I Carkitz:I Google Maps Android API:I *:S"
+            command = "logcat | grep \"(${this.pID})\" RealImageLoader:I okhttp.OkHttpClient:I Carkitz:I Google Maps Android API:I *:S"
             clearLogCommand = "logcat -c"
         }
 
-        internal fun stopLogs() {
+        fun stopLogs() {
             mRunning = false
         }
 

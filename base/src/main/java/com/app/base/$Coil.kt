@@ -34,9 +34,9 @@ private const val NONE: Byte = 0
  */
 @Composable
 fun SubComposeAsyncImage(
+    modifier: Modifier = Modifier,
     model: Any?,
     contentDescription: String? = model?.toString(),
-    modifier: Modifier = Modifier,
     state: MutableState<Byte> = rememberSaveable {
         mutableStateOf(NONE)
     },

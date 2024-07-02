@@ -8,9 +8,9 @@ import com.tencent.mmkv.MMKV
  *
  * 改良：存值和取值的类型不匹配，导致的错误
  *
- * @param first: key
- * @param second: value type
- * @param third: default value
+ * first: key
+ * second: value type
+ * third: default value
  *
  * @see [com.app.template.comm.MMKVKey]
  */

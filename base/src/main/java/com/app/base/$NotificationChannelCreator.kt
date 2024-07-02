@@ -1,5 +1,6 @@
 package com.app.base
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -43,6 +44,7 @@ fun createNotificationChannel(
     )
 }
 
+@SuppressLint("ObsoleteSdkInt")
 fun createNotificationChannel(
     context: Context,
     channelName: String, channelDesc: String, channelID: String,
@@ -57,10 +59,12 @@ fun createNotificationChannel(
         }
         notificationChannel = NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_HIGH)
         notificationChannel.description = channelDesc
+        notificationChannel.notificationChannelConfig()
 
         groupID?.let {
             notificationChannel.group = it
         }
+
         notificationManager.createNotificationChannel(notificationChannel)
     }
 }
