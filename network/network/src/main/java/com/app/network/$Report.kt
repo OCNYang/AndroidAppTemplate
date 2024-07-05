@@ -9,7 +9,7 @@ import retrofit2.MonitorCallAdapterFactory
 /**
  * 网络请求埋点上报，根据需求自定义
  */
-object Report : MonitorCallAdapterFactory.ErrorHandler {
+object Report : MonitorCallAdapterFactory.ErrorHandler,MonitorCallAdapterFactory.SuccessHandler {
     override fun invoke(requestBodyStr: String, e: Exception, rawCallId: Int?) {
         val handleException = ExceptionHandler.handleException(e)
 
@@ -29,5 +29,9 @@ object Report : MonitorCallAdapterFactory.ErrorHandler {
 
         // todo 这里处理网络请求的错误上报
         LogX.e("网络请求错误：$httpData")
+    }
+
+    override fun invoke(p1: Int?) {
+        p1?.let { NetworkEventListener.removeMonitorLogsByRawCallHashCode(it) }
     }
 }

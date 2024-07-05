@@ -2,7 +2,6 @@ package retrofit2;
 
 import androidx.annotation.Nullable;
 
-import com.app.network.error.ExceptionHandler;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -13,8 +12,10 @@ import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 import java.util.Objects;
 import java.util.concurrent.Executor;
+import java.util.function.Function;
 
 import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
 import kotlin.jvm.functions.Function3;
 import okhttp3.Request;
@@ -23,6 +24,7 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
     private final @Nullable Executor callbackExecutor;
     private final @Nullable Function3<String, Exception, Integer, Unit> errorHandler;
     private final @Nullable Function2<String, Exception, Unit> simpleErrorHandler;
+    private final @Nullable Function1<Integer, Unit> successHandler;
 
     public interface ErrorHandler extends Function3<String, Exception, Integer, Unit> {
     }
@@ -30,30 +32,42 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
     public interface SimpleErrorHandler extends Function2<String, Exception, Unit> {
     }
 
-    private MonitorCallAdapterFactory(@Nullable Executor callbackExecutor, @Nullable Function3<String, Exception, Integer, Unit> errorHandler, @Nullable Function2<String, Exception, Unit> simpleErrorHandler) {
+    public interface SuccessHandler extends Function1<Integer, Unit> {
+    }
+
+    private MonitorCallAdapterFactory(@Nullable Executor callbackExecutor,
+                                      @Nullable Function3<String, Exception, Integer, Unit> errorHandler,
+                                      @Nullable Function2<String, Exception, Unit> simpleErrorHandler,
+                                      @Nullable Function1<Integer, Unit> successHandler
+    ) {
         this.callbackExecutor = callbackExecutor;
         this.errorHandler = errorHandler;
         this.simpleErrorHandler = simpleErrorHandler;
+        this.successHandler = successHandler;
     }
 
     public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor, @Nullable Function3<String, Exception, Integer, Unit> errorHandler) {
-        this(callbackExecutor, errorHandler, null);
+        this(callbackExecutor, errorHandler, null, null);
     }
 
     public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor, @Nullable ErrorHandler errorHandler) {
         this(callbackExecutor, errorHandler, null);
     }
 
+    public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor, @Nullable ErrorHandler errorHandler, SuccessHandler successHandler) {
+        this(callbackExecutor, errorHandler, null, successHandler);
+    }
+
     public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor, @Nullable SimpleErrorHandler simpleErrorHandler) {
-        this(callbackExecutor, null, simpleErrorHandler);
+        this(callbackExecutor, null, simpleErrorHandler, null);
     }
 
     public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor, @Nullable Function2<String, Exception, Unit> simpleErrorHandler) {
-        this(callbackExecutor, null, simpleErrorHandler);
+        this(callbackExecutor, null, simpleErrorHandler, null);
     }
 
     public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor) {
-        this(callbackExecutor, null, null);
+        this(callbackExecutor, null, null, null);
     }
 
     @Override
@@ -99,14 +113,16 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
                                                         Request request = okHttpCall.request();
                                                         Exception exception = (Exception) args[1];
 
-                                                        errorHandler(request, exception, okHttpCall);
+                                                        onError(request, exception, okHttpCall);
                                                     }
                                                     if (method.getName().equals("onResponse") && args.length == 2 && args[0] instanceof OkHttpCall && args[1] instanceof retrofit2.Response) {
                                                         OkHttpCall okHttpCall = (OkHttpCall) args[0];
                                                         Request request = okHttpCall.request();
                                                         retrofit2.Response response = (retrofit2.Response) args[1];
                                                         if (response.code() != 200) {
-                                                            errorHandler(request, new HttpException(response), okHttpCall);
+                                                            onError(request, new HttpException(response), okHttpCall);
+                                                        } else {
+                                                            onSuccess(request, okHttpCall);
                                                         }
                                                     }
                                                     return method.invoke(callback, args);
@@ -128,7 +144,7 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
         };
     }
 
-    private void errorHandler(Request request, Exception exception, OkHttpCall okHttpCall) throws NoSuchFieldException {
+    private void onError(Request request, Exception exception, OkHttpCall okHttpCall) throws NoSuchFieldException {
 
         if (simpleErrorHandler != null) {
             simpleErrorHandler.invoke(request.toString(), exception);
@@ -143,6 +159,30 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
                 e.printStackTrace();
             }
             errorHandler.invoke(request.toString(), exception, rawCallHashCode);
+        }
+    }
+
+    /**
+     * 请求成功时的回调
+     * 这里是为了删除网络监控中的对应的数据记录
+     * <p>
+     *
+     * @param request
+     * @param okHttpCall
+     * @throws NoSuchFieldException
+     */
+    private void onSuccess(Request request, OkHttpCall okHttpCall) throws NoSuchFieldException {
+        if (successHandler != null) {
+            Field rawCall = OkHttpCall.class.getDeclaredField("rawCall");
+            rawCall.setAccessible(true);
+            int rawCallHashCode = 0;
+            try {
+                rawCallHashCode = ((okhttp3.Call) rawCall.get(okHttpCall)).hashCode();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            successHandler.invoke(rawCallHashCode);
         }
     }
 }

@@ -110,6 +110,12 @@ class NetworkEventListener(private val justLogError: Boolean = false) : Timeline
             return httpData
         }
 
+
+        @JvmStatic
+        fun removeMonitorLogsByRawCallHashCode(rawCallHashCode: Int) {
+            NETWORK_MONITOR_LOGS_LIST.remove(rawCallHashCode)
+        }
+
         @JvmStatic
         fun clearMonitorLogs() {
             NETWORK_MONITOR_LOGS_LIST.clear()

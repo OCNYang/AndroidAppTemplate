@@ -25,7 +25,7 @@ object HttpManager {
             .client(initOkHttpClient())
             .baseUrl(PATH.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(MonitorCallAdapterFactory(null, Report)) // 用于监控网络请求错误，以用来上报埋点
+            .addCallAdapterFactory(MonitorCallAdapterFactory(null, Report, Report)) // 用于监控网络请求错误，以用来上报埋点
             .build()
     }
 

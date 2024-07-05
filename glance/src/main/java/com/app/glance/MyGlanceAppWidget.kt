@@ -58,8 +58,7 @@ class MyGlanceAppWidget : GlanceAppWidget() {
     @Composable
     private fun MyContent() {
         Column(
-            modifier = GlanceModifier.fillMaxSize()
-                .background(GlanceTheme.colors.background),
+            modifier = GlanceModifier.fillMaxSize().background(GlanceTheme.colors.background),
             verticalAlignment = Alignment.CenterVertically,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
