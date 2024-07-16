@@ -63,13 +63,13 @@ dependencies {
 
     // 图片加载 ✅ [https://github.com/coil-kt/coil]
     api(libs.coil)
-    api(libs.coil.compose){
-        exclude(group="androidx.core")
-        exclude(group="androidx.activity")
+    api(libs.coil.compose) {
+        exclude(group = "androidx.core")
+        exclude(group = "androidx.activity")
     }
 
     // AndroidUtilCode ✅ [https://github.com/Blankj/AndroidUtilCode]
-    api(libs.utilcodex){
+    api(libs.utilcodex) {
         exclude(group = "androidx.appcompat")
     }
 
@@ -77,7 +77,7 @@ dependencies {
     api("com.geyifeng.immersionbar:immersionbar:3.2.2")
     api("com.geyifeng.immersionbar:immersionbar-ktx:3.2.2")
 
-    api("com.github.ocnyang:compose-status-box:1.0.1"){
+    api("com.github.ocnyang:compose-status-box:1.0.1") {
         // exclude(group = "androidx.compose")
     }
 

@@ -266,4 +266,8 @@ Looper.myQueue().addIdleHandler(MyIdleHandler())
 
 工具方法，可组合项生命周期的监听： LifecycleEffect
 
+## 第三方平台 key
+
+这里建议所有第三方平台账号的 key 通过接口下发，然后动态初始化注册，这里主要是为了防止中间换账号。
+
 
