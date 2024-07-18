@@ -39,6 +39,7 @@ dependencies {
     implementation(project(":base"))
     implementation(project(":api"))
     implementation(project(":base"))
+    implementation(project(":network-monitor"))
 
 //    testImplementation(libs.junit)
 //    androidTestImplementation(libs.androidx.junit)

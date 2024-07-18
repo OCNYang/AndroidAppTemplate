@@ -1,7 +1,7 @@
 package retrofit2;
 
-import androidx.annotation.Nullable;
 
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -12,7 +12,6 @@ import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 import java.util.Objects;
 import java.util.concurrent.Executor;
-import java.util.function.Function;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -115,10 +114,10 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
 
                                                         onError(request, exception, okHttpCall);
                                                     }
-                                                    if (method.getName().equals("onResponse") && args.length == 2 && args[0] instanceof OkHttpCall && args[1] instanceof retrofit2.Response) {
+                                                    if (method.getName().equals("onResponse") && args.length == 2 && args[0] instanceof OkHttpCall && args[1] instanceof Response) {
                                                         OkHttpCall okHttpCall = (OkHttpCall) args[0];
                                                         Request request = okHttpCall.request();
-                                                        retrofit2.Response response = (retrofit2.Response) args[1];
+                                                        Response response = (Response) args[1];
                                                         if (response.code() != 200) {
                                                             onError(request, new HttpException(response), okHttpCall);
                                                         } else {

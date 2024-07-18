@@ -1,47 +1,15 @@
-package com.app.network
+package com.app.network.monitor
 
-import android.text.TextUtils
 import okhttp3.Request
 import okio.Buffer
 import java.io.EOFException
-import java.net.InetAddress
-import java.net.URI
-import java.net.URISyntaxException
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
-
-fun isLocalhost(url: String?): Boolean {
-    var isLocal = false
-    try {
-        val uri = URI(url)
-        val host = uri.host
-        if (host != null) {
-            if (host == "localhost") {
-                isLocal = true
-            } else {
-                val inetAddress = InetAddress.getByName(host)
-                if (inetAddress.isLoopbackAddress) {
-                    isLocal = true
-                }
-            }
-        }
-    } catch (e: URISyntaxException) {
-        e.printStackTrace()
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
-    return isLocal
-}
-
-fun inBlackList(url: String?): Boolean {
-    return url == null || TextUtils.isEmpty(url.trim())
-}
-
 
 private val UTF8 = StandardCharsets.UTF_8
 
 @Throws(Exception::class)
- fun getRequestParams(request: Request): String? {
+fun getRequestParams(request: Request): String? {
     val requestBody = request.body
     val hasRequestBody = requestBody != null
     if (!hasRequestBody) {
@@ -57,16 +25,16 @@ private val UTF8 = StandardCharsets.UTF_8
     var param: String? = null
     if (isPlaintext(buffer) && charset != null) {
         val string = String(buffer.readByteArray(), charset)
-        try {
-            param = URLDecoder.decode(string, "UTF-8")
+        param = try {
+            URLDecoder.decode(string, "UTF-8")
         } catch (e: IllegalArgumentException) {
-            param = replacer(string)
+            replacer(string)
         }
     }
     return param
 }
 
- fun isPlaintext(buffer: Buffer): Boolean {
+fun isPlaintext(buffer: Buffer): Boolean {
     return try {
         val prefix = Buffer()
         val byteCount = if (buffer.size < 64) buffer.size else 64

@@ -1,6 +1,5 @@
 package com.app.network.monitor
 
-import android.os.Bundle
 import okhttp3.Call
 import okhttp3.EventListener
 
@@ -11,7 +10,10 @@ data class HttpData(
     var rawCallHashCode: Int = 0,
     var inetSocketAddress: String? = null,
     var protocol: String? = null,
-    var timeline: HashMap<String, Long> = hashMapOf(),
+    var timeline: HashMap<String, Long> =
+        hashMapOf(*EventListener::class.java.methods.filter {
+            it.name != "equals" && it.name != "hashCode" && it.name != "toString" && it.name != "getClass"
+        }.map { it.name to 0L }.toTypedArray()),
 
     // http or https
     var schema: String? = null,
@@ -34,7 +36,7 @@ data class HttpData(
     // Http状态码 200 ,404
     var responseCode: Int? = null,
 ) {
-    val startTime: Long = timeline[TimelineEventListener.START] ?: 0
+    val startTime: Long =  0 // todo
 
     // DNS的耗时
     var dnsCost: Long? = timeline[EventListener::dnsEnd.name]?.minus(timeline[EventListener::dnsStart.name] ?: 0)
@@ -68,22 +70,22 @@ data class HttpData(
     }
 
 
-    fun toBundle(): Bundle {
-        return Bundle().apply {
-            putString("request", request)
-            putString("response", response)
-            putString("proxy", proxy)
-            putString("inetSocketAddress", inetSocketAddress)
-            putString("protocol", protocol)
-            putString("timeline", timeline.toString())
-            putString("schema", schema)
-            putString("domain", domain)
-            putString("method", method)
-            putString("methodName", methodName)
-            putString("url", url)
-            putString("requestParams", requestParams)
-            putString("errorMsg", errorMsg)
-        }
-    }
+//    fun toBundle(): Bundle {
+//        return Bundle().apply {
+//            putString("request", request)
+//            putString("response", response)
+//            putString("proxy", proxy)
+//            putString("inetSocketAddress", inetSocketAddress)
+//            putString("protocol", protocol)
+//            putString("timeline", timeline.toString())
+//            putString("schema", schema)
+//            putString("domain", domain)
+//            putString("method", method)
+//            putString("methodName", methodName)
+//            putString("url", url)
+//            putString("requestParams", requestParams)
+//            putString("errorMsg", errorMsg)
+//        }
+//    }
 
 }
