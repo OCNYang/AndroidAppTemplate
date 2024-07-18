@@ -4,6 +4,8 @@ import okhttp3.Call
 import okhttp3.EventListener
 
 data class HttpData(
+    val initTime: Long =  System.currentTimeMillis(),
+
     var request: String = "",
     var response: String = "",
     var proxy: String? = null,
@@ -36,7 +38,6 @@ data class HttpData(
     // Http状态码 200 ,404
     var responseCode: Int? = null,
 ) {
-    val startTime: Long =  0 // todo
 
     // DNS的耗时
     var dnsCost: Long? = timeline[EventListener::dnsEnd.name]?.minus(timeline[EventListener::dnsStart.name] ?: 0)

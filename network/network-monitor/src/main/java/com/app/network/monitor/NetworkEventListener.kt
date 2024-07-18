@@ -1,7 +1,6 @@
 package com.app.network.monitor
 
 import androidx.collection.SparseArrayCompat
-import androidx.collection.size
 import okhttp3.Call
 import okhttp3.Protocol
 import okhttp3.Request
@@ -9,16 +8,14 @@ import okhttp3.Response
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Proxy
+import java.util.LinkedList
+import java.util.Queue
 
 /**
- * 这里是对网络请求的监控，比如dns、连接、请求各阶段的时间
+ * 这里是对网络请求的监控，比如 dns、连接、请求各阶段的时间
  * 这里的网络异常只能监控到 HTTP 异常
- *
- * @param justLogError 是否只记录错误
- * ⚠️ 如果只记录错误，当遇到非 HTTP 异常时（比如 JsonDataException）时，将会丢失这里监控的请求信息。
- * 因为 部分错误 是在网络请求结束后产生的（比如 数据解析）。
  */
-class NetworkEventListener(private val justLogError: Boolean = false) : TimelineEventListener() {
+class NetworkEventListener : TimelineEventListener() {
 
     override fun connectEnd(call: Call, inetSocketAddress: InetSocketAddress, proxy: Proxy, protocol: Protocol?) {
         super.connectEnd(call, inetSocketAddress, proxy, protocol)
@@ -32,7 +29,7 @@ class NetworkEventListener(private val justLogError: Boolean = false) : Timeline
 
     override fun requestHeadersEnd(call: Call, request: Request) {
         super.requestHeadersEnd(call, request)
-        with(call.getHttpData()){
+        with(call.getHttpData()) {
             this.request = request.toString()
             try {
                 this.requestParams = getRequestParams(request)
@@ -45,7 +42,7 @@ class NetworkEventListener(private val justLogError: Boolean = false) : Timeline
 
     override fun responseHeadersEnd(call: Call, response: Response) {
         super.responseHeadersEnd(call, response)
-        with(call.getHttpData()){
+        with(call.getHttpData()) {
             this.response = response.toString()
             this.responseCode = response.code
         }
@@ -72,7 +69,6 @@ class NetworkEventListener(private val justLogError: Boolean = false) : Timeline
         }
 
         httpData.errorMsg = stringBuilder.toString()
-        log(call)
     }
 
     override fun callEnd(call: Call) {
@@ -81,62 +77,52 @@ class NetworkEventListener(private val justLogError: Boolean = false) : Timeline
         if (httpData.url.isNullOrBlank()) {
             return
         }
-        if (!justLogError) {
-            log(call)
-        }
-    }
-
-    private fun log(call: Call) {
-
-        call.request()
-        // httpHistory.put(mHttpData.rawCallHashCode, mHttpData)
-
-        print("长度：${httpHistory.size} $httpHistory")
     }
 
     companion object {
         @JvmStatic
-        var LOGS_SIZE_THRESHOLD: Int = 99
+        var NetworkMonitorHistoryMaxSize: Int = 10
 
-        @JvmStatic
-        var LOGS_OUT_TIME = 1000 * 60 * 5
-
-        @JvmStatic
         private val httpHistory: SparseArrayCompat<HttpData> = SparseArrayCompat()
-            get() {
-                if (field.size() > LOGS_SIZE_THRESHOLD) {
-                    val currentTime = System.currentTimeMillis()
-                    for (i in 0 until field.size()) {
-                        val key = field.keyAt(i)
-                        val value = field.valueAt(i)
-                        if (currentTime - value.startTime > LOGS_OUT_TIME) {
-                            field.remove(key)
-                        }
-                    }
+        private val httpHistoryQueue: Queue<Int> = object : LinkedList<Int>() {
+            override fun offer(p0: Int?): Boolean {
+                while (this.size >= NetworkMonitorHistoryMaxSize) {
+                    val id = this.poll()
+                    removeNetworkMonitorHistoryByRequestHashCode(id)
                 }
-                return field
+                return super.offer(p0)
             }
+        }
+
+        internal fun Call.getHttpData() = httpHistory[this.request().hashCode()] ?: HttpData().apply {
+            val requestHashCode = this@getHttpData.request().hashCode()
+            httpHistoryQueue.offer(requestHashCode)
+            httpHistory.put(this@getHttpData.request().hashCode(), this)
+        }
+
+        internal fun Call.getTimeLine() = getHttpData().timeline
 
         @JvmStatic
-        fun Call.getHttpData() = httpHistory[hashCode()] ?: HttpData().apply { httpHistory.put(this@getHttpData.hashCode(), this) }
-        fun Call.getTimeLine() = getHttpData().timeline
-
-        @JvmStatic
-        fun findMonitorLogsByRawCallHashCode(rawCallHashCode: Int): HttpData? {
-            val httpData = httpHistory[rawCallHashCode]
-            httpHistory.remove(rawCallHashCode)
+        fun popNetworkMonitorHistoryByRequestHashCode(requestHashCode: Int): HttpData? {
+            val httpData = httpHistory[requestHashCode]
+            removeNetworkMonitorHistoryByRequestHashCode(requestHashCode)
             return httpData
         }
 
-
-        @JvmStatic
-        fun removeMonitorLogsByRawCallHashCode(rawCallHashCode: Int) {
-            httpHistory.remove(rawCallHashCode)
+        private fun removeNetworkMonitorHistoryByRequestHashCode(requestHashCode: Int) {
+            while (httpHistoryQueue.isNotEmpty()) {
+                val id = httpHistoryQueue.poll()
+                if (id == requestHashCode) {
+                    break
+                }
+            }
+            httpHistory.remove(requestHashCode)
         }
 
         @JvmStatic
-        fun clearMonitorLogs() {
+        fun clearNetworkMonitorHistory() {
             httpHistory.clear()
+            httpHistoryQueue.clear()
         }
     }
 }

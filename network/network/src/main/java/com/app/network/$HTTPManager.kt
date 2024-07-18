@@ -56,7 +56,7 @@ object HttpManager {
             .writeTimeout(12, TimeUnit.SECONDS)
             .readTimeout(12, TimeUnit.SECONDS)
 
-        build.eventListener(NetworkEventListener(justLogError = false)) // 用来记录网络请求历史
+        build.eventListener(NetworkEventListener()) // 用来记录网络请求历史
 
         build.addInterceptor(CookiesInterceptor())
         build.addInterceptor(HeaderInterceptor())

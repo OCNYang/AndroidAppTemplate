@@ -15,58 +15,39 @@ import java.util.concurrent.Executor;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
-import kotlin.jvm.functions.Function2;
 import kotlin.jvm.functions.Function3;
 import okhttp3.Request;
 
 public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
     private final @Nullable Executor callbackExecutor;
     private final @Nullable Function3<String, Exception, Integer, Unit> errorHandler;
-    private final @Nullable Function2<String, Exception, Unit> simpleErrorHandler;
     private final @Nullable Function1<Integer, Unit> successHandler;
 
     public interface ErrorHandler extends Function3<String, Exception, Integer, Unit> {
     }
 
-    public interface SimpleErrorHandler extends Function2<String, Exception, Unit> {
-    }
-
     public interface SuccessHandler extends Function1<Integer, Unit> {
     }
 
-    private MonitorCallAdapterFactory(@Nullable Executor callbackExecutor,
-                                      @Nullable Function3<String, Exception, Integer, Unit> errorHandler,
-                                      @Nullable Function2<String, Exception, Unit> simpleErrorHandler,
-                                      @Nullable Function1<Integer, Unit> successHandler
+    public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor,
+                              @Nullable Function3<String, Exception, Integer, Unit> errorHandler,
+                              @Nullable Function1<Integer, Unit> successHandler
     ) {
         this.callbackExecutor = callbackExecutor;
         this.errorHandler = errorHandler;
-        this.simpleErrorHandler = simpleErrorHandler;
         this.successHandler = successHandler;
     }
 
     public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor, @Nullable Function3<String, Exception, Integer, Unit> errorHandler) {
-        this(callbackExecutor, errorHandler, null, null);
+        this(callbackExecutor, errorHandler, null);
     }
 
     public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor, @Nullable ErrorHandler errorHandler) {
         this(callbackExecutor, errorHandler, null);
     }
 
-    public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor, @Nullable ErrorHandler errorHandler, SuccessHandler successHandler) {
-        this(callbackExecutor, errorHandler, null, successHandler);
-    }
-
-    public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor, @Nullable SimpleErrorHandler simpleErrorHandler) {
-        this(callbackExecutor, null, simpleErrorHandler, null);
-    }
-
-    public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor, @Nullable Function2<String, Exception, Unit> simpleErrorHandler) {
-        this(callbackExecutor, null, simpleErrorHandler, null);
-    }
-
     public MonitorCallAdapterFactory(@Nullable Executor callbackExecutor) {
-        this(callbackExecutor, null, null, null);
+        this(callbackExecutor, null, null);
     }
 
     @Override
@@ -95,7 +76,7 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
             @Override
             public Call adapt(Call<Object> call) {
                 if (executor == null) {
-                    if (errorHandler != null || simpleErrorHandler != null) {
+                    if (errorHandler != null || successHandler != null) {
                         return (Call) Proxy.newProxyInstance(
                                 Call.class.getClassLoader(),
                                 new Class[]{Call.class},
@@ -143,21 +124,9 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
         };
     }
 
-    private void onError(Request request, Exception exception, OkHttpCall okHttpCall) throws NoSuchFieldException {
-
-        if (simpleErrorHandler != null) {
-            simpleErrorHandler.invoke(request.toString(), exception);
-        }
+    private void onError(Request request, Exception exception, OkHttpCall okHttpCall) {
         if (errorHandler != null) {
-            Field rawCall = OkHttpCall.class.getDeclaredField("rawCall");
-            rawCall.setAccessible(true);
-            int rawCallHashCode = 0;
-            try {
-                rawCallHashCode = ((okhttp3.Call) rawCall.get(okHttpCall)).hashCode();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            errorHandler.invoke(request.toString(), exception, rawCallHashCode);
+            errorHandler.invoke(request.toString(), exception, request.hashCode());
         }
     }
 
@@ -170,18 +139,22 @@ public final class MonitorCallAdapterFactory extends CallAdapter.Factory {
      * @param okHttpCall
      * @throws NoSuchFieldException
      */
-    private void onSuccess(Request request, OkHttpCall okHttpCall) throws NoSuchFieldException {
+    private void onSuccess(Request request, OkHttpCall okHttpCall) {
         if (successHandler != null) {
+            successHandler.invoke(request.hashCode());
+        }
+    }
+
+    private static int getRawCallHashCode(OkHttpCall okHttpCall) {
+        try {
             Field rawCall = OkHttpCall.class.getDeclaredField("rawCall");
             rawCall.setAccessible(true);
-            int rawCallHashCode = 0;
-            try {
-                rawCallHashCode = ((okhttp3.Call) rawCall.get(okHttpCall)).hashCode();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            successHandler.invoke(rawCallHashCode);
+            return (rawCall.get(okHttpCall)).hashCode();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return -1;
     }
 }
