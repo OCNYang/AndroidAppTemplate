@@ -110,12 +110,7 @@ class NetworkEventListener : TimelineEventListener() {
         }
 
         private fun removeNetworkMonitorHistoryByRequestHashCode(requestHashCode: Int) {
-            while (httpHistoryQueue.isNotEmpty()) {
-                val id = httpHistoryQueue.poll()
-                if (id == requestHashCode) {
-                    break
-                }
-            }
+            httpHistoryQueue.remove(requestHashCode)
             httpHistory.remove(requestHashCode)
         }
 
