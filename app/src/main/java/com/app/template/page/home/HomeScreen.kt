@@ -2,6 +2,7 @@ package com.app.template.page.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,6 +31,7 @@ import com.ocnyang.status_box.UIState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.DetailScreenDestination
+import com.ramcosta.composedestinations.generated.destinations.ListScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @SuppressLint("SetJavaScriptEnabled")
@@ -76,7 +78,9 @@ fun HomeScreen(
         }
     ) { contentPadding ->
         StatusBox(
-            modifier = Modifier.fillMaxSize().padding(contentPadding),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding),
             stateContainer = pageStateContainer,
             contentScrollEnabled = true
         ) {
@@ -85,18 +89,28 @@ fun HomeScreen(
 
             ImageX(
                 model = imgAddress,
-                modifier = Modifier.fillMaxWidth().height(120.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(120.dp),
             )
 
-            Button(onClick = {
-                viewModel.requestData()
-            }) {
-                Text(text = "发起网络请求")
-            }
-            Button(onClick = {
-                navigator.navigate(DetailScreenDestination())
-            }) {
-                Text(text = "跳转")
+            Row {
+
+                Button(onClick = {
+                    viewModel.requestData()
+                }) {
+                    Text(text = "发起网络请求")
+                }
+                Button(onClick = {
+                    navigator.navigate(DetailScreenDestination())
+                }) {
+                    Text(text = "跳转详情")
+                }
+                Button(onClick = {
+                    navigator.navigate(ListScreenDestination())
+                }) {
+                    Text(text = "跳转列表")
+                }
             }
 
             WebViewCompose(

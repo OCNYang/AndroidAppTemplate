@@ -1,5 +1,11 @@
 pluginManagement {
     repositories {
+//        阿里镜像，有时无法获取到最新版本的库
+//        maven("https://maven.aliyun.com/repository/google/")
+//        maven("https://maven.aliyun.com/repository/gradle-plugin/")
+//        maven("https://maven.aliyun.com/repository/public/")
+//        maven("https://maven.aliyun.com/repository/jcenter/")
+//        maven("https://maven.aliyun.com/repository/central/")
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
@@ -16,6 +22,11 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+//        maven("https://maven.aliyun.com/repository/google/")
+//        maven("https://maven.aliyun.com/repository/gradle-plugin/")
+//        maven("https://maven.aliyun.com/repository/public/")
+//        maven("https://maven.aliyun.com/repository/jcenter/")
+//        maven("https://maven.aliyun.com/repository/central/")
         google()
         mavenCentral()
         maven("https://jitpack.io")

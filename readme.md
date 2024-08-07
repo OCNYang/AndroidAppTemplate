@@ -232,7 +232,7 @@ Compose Navigation 封装库：[https://github.com/raamcosta/compose-destination
  ``.addCallAdapterFactory(MonitorCallAdapterFactory(null, Report))``
 
 
-云真机列表：
+## 云真机列表：
 
 ● OPPO 远程真机平台：https://open.oppomobile.com/octpcloud/octpcloud/index.html#/?source=open_manage_zhenji 
 ● vivo 云真机：https://dev.vivo.com.cn/vcl/#/remote/device/list 
@@ -275,6 +275,11 @@ Looper.myQueue().addIdleHandler(MyIdleHandler())
 所有图标，尤其应用图标、通知图标，都要求通过 AS `右键 -> new -> Image Asset/Vector Asset` 的方式导入；
 这里主要是为了避免图标的不规范造成的问题。
 
+## 规范化：最小可用版本控制
+
+通过接口下发配置：最小可用版本；如果当前版本小于最小可用版本；强制提醒用户升级，不升级不可再用。
+如果前期不采用这种方式，只能通过删除掉原接口采用新接口才能达到效果，且这种效果不太友好，用户不知道是因为版本低不能使用，会认为应用下架了。
+
 
 ## 消息推送策略
 
@@ -288,3 +293,13 @@ Looper.myQueue().addIdleHandler(MyIdleHandler())
 3. 消息推送的消息，在手机端被用户点击打开后，上报给服务端，这里做为确切送达标识；
 4. 如果用户没有点击消息推送，而是直接的打开应用，这时，可以在应用内上方悬浮展示消息，用户不点击不消失；用户点击的话，做为确切送达标识，用户滑动清除，作为确切忽略标识；
 5. 如果消息推送后，用户长时间没有点消息，也没有打开应用处理消息；也就是说多方标识都不能确认用户以收到消息，则采用电话通知的形式；
+
+
+## Activity 的销毁和恢复
+
+1. viewModel 本身是可以恢复“屏幕旋转”造成的销毁；
+2. viewModel 结合 SavedStateHandle 可以实现内存不足造成的销毁后的恢复；// 实现原理其实是对 onSaveInstanceState(Bundle) 和 onRestoreInstanceState(Bundle) 的封装；
+
+## Compose 库用法例子
+
+[material3](https://github.com/JetBrains/compose-multiplatform-core/tree/3065673e475673db51517136ad1523e51bd455da/compose/material3/material3/samples/src/main/java/androidx/compose/material3/samples)

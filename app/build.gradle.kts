@@ -56,7 +56,8 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+//    implementation(libs.androidx.material3)
+    implementation("androidx.compose.material3:material3-android:1.3.0-beta05") // 为了使用最新版本的控件
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.paging.compose)
 
