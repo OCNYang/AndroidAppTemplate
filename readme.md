@@ -2,14 +2,17 @@
 
 ```
 .
-├── app
-├── base
-├── glance
+├── app // 主项目：业务代码放在这里，需要分模块的话自己去分
+├── base // 基础模块：基类、拓展类、常用第三方库
+├── glance // 桌面小部件模块
+├── room // 数据库模块：TODO: 需要时再创建
+├── workmanger // TODO: 需要时再创建
 ├── network
-│   ├── api
-│   └── network
+│   ├── api // 数据接口声明模块
+│   ├── network // 网络数据接口实现模块：okhttp3 & retrofit2 & moshi & flow
+│   └── network-monitor // 网络请求监控模块：被 network 依赖
 └── webview
-    └── webview-x5
+    └── webview-x5 // 浏览器模块
 ```
 
 ```
@@ -234,11 +237,11 @@ Compose Navigation 封装库：[https://github.com/raamcosta/compose-destination
 
 ## 云真机列表：
 
-● OPPO 远程真机平台：https://open.oppomobile.com/octpcloud/octpcloud/index.html#/?source=open_manage_zhenji 
-● vivo 云真机：https://dev.vivo.com.cn/vcl/#/remote/device/list 
-● 华为 云调试：https://developer.huawei.com/consumer/cn/service/josp/agc/handleAllianceLogin.html?_=20240422113136 
-● 荣耀 云调试（远程真机）：https://developer.honor.com/cn/manageCenter/app/E00012?~id=41 
-● 小米 远程真机租用：https://testit.miui.com/remote?cUserId=CIyBxfZ2GKa8cupuUvn_V7G-4BE 
+● OPPO 远程真机平台：[https://open.oppomobile.com/octpcloud/octpcloud/index.html#/?source=open_manage_zhenji](https://open.oppomobile.com/octpcloud/octpcloud/index.html#/?source=open_manage_zhenji)  
+● vivo 云真机：[https://dev.vivo.com.cn/vcl/#/remote/device/list](https://dev.vivo.com.cn/vcl/#/remote/device/list)  
+● 华为 云调试：[https://developer.huawei.com/consumer/cn/service/josp/agc/handleAllianceLogin.html?_=20240422113136](https://developer.huawei.com/consumer/cn/service/josp/agc/handleAllianceLogin.html?_=20240422113136)  
+● 荣耀 云调试（远程真机）：[https://developer.honor.com/cn/manageCenter/app/E00012?~id=41](https://developer.honor.com/cn/manageCenter/app/E00012?~id=41)  
+● 小米 远程真机租用：[https://testit.miui.com/remote?cUserId=CIyBxfZ2GKa8cupuUvn_V7G-4BE](https://testit.miui.com/remote?cUserId=CIyBxfZ2GKa8cupuUvn_V7G-4BE)  
 
 ## 关于 Notification 的坑
 消息通知现在需要设置 channel ,且设置后再次变更无效（即和第一次设置的配置保持一致），需卸载重装后才能生效。
