@@ -2,15 +2,16 @@ package com.app.template.page.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,6 +24,8 @@ import com.app.template.page._widget.ImageX
 import com.app.base.Log
 import com.app.base.NetworkChangeViewModel
 import com.app.base.appViewModel
+import com.app.template.page._widget.Scaffold
+import com.app.template.page._widget.SnackBarAction
 import com.app.template.page._widget.WebViewCompose
 import com.app.template.viewmodel.HomeViewModel
 import com.ocnyang.status_box.StateContainer
@@ -76,7 +79,7 @@ fun HomeScreen(
                 },
             )
         }
-    ) { contentPadding ->
+    ) { contentPadding, showSnackBar ->
         StatusBox(
             modifier = Modifier
                 .fillMaxSize()
@@ -94,8 +97,7 @@ fun HomeScreen(
                     .height(120.dp),
             )
 
-            Row {
-
+            Row(Modifier.horizontalScroll(rememberScrollState())) {
                 Button(onClick = {
                     viewModel.requestData()
                 }) {
@@ -110,6 +112,11 @@ fun HomeScreen(
                     navigator.navigate(ListScreenDestination())
                 }) {
                     Text(text = "跳转列表")
+                }
+                Button(onClick = {
+                    showSnackBar(SnackBarAction("snackbar",true))
+                }) {
+                    Text(text = "SnackBar")
                 }
             }
 
@@ -126,3 +133,4 @@ fun HomeScreen(
     }
 
 }
+

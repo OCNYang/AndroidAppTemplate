@@ -45,11 +45,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.app.template.viewmodel.PagingViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -189,6 +192,72 @@ fun LazyColumnEmptyBox(
         contentAlignment = Alignment.Center,
         content = content
     )
+}
+
+
+@Composable
+@Preview
+@OptIn(ExperimentalMaterial3Api::class)
+fun PullToRefreshViewModelSample() {
+    val viewModel = remember {
+        object : ViewModel() {
+            private val refreshRequests = Channel<Unit>(1)
+            var isRefreshing by mutableStateOf(false)
+                private set
+
+            var itemCount by mutableStateOf(15)
+                private set
+
+            init {
+                viewModelScope.launch {
+                    for (r in refreshRequests) {
+                        isRefreshing = true
+                        try {
+                            itemCount += 5
+                            delay(5000) // simulate doing real work
+                        } finally {
+                            isRefreshing = false
+                        }
+                    }
+                }
+            }
+
+            fun refresh() {
+                refreshRequests.trySend(Unit)
+            }
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Title") },
+                // Provide an accessible alternative to trigger refresh.
+                actions = {
+                    IconButton(
+                        enabled = !viewModel.isRefreshing,
+                        onClick = { viewModel.refresh() }
+                    ) {
+                        Icon(Icons.Filled.Refresh, "Trigger Refresh")
+                    }
+                }
+            )
+        }
+    ) {
+        PullToRefreshBox(
+            modifier = Modifier.padding(it),
+            isRefreshing = viewModel.isRefreshing,
+            onRefresh = { viewModel.refresh() }
+        ) {
+            LazyColumn(Modifier.fillMaxSize()) {
+                if (!viewModel.isRefreshing) {
+                    items(viewModel.itemCount) {
+                        ListItem({ Text(text = "Item ${viewModel.itemCount - it}") })
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Composable

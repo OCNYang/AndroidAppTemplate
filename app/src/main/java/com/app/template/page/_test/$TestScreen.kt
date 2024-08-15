@@ -71,7 +71,7 @@ fun TestFAB(onClick: () -> Unit) {
     ) {
         // todo 当打印日志时，可以显示一个指示
         SmallFloatingActionButton(
-            modifier = Modifier.padding(15.dp),
+            modifier = Modifier.padding(end = 15.dp, bottom = 45.dp),
             onClick = onClick,
             content = {
                 BadgedBox(

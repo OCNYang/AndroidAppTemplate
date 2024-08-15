@@ -25,23 +25,13 @@ private val LightColorScheme = lightColorScheme(
     surface = Color.White,
     background = Color.White,
     surfaceTint = Color.White, // todo 同上
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
 )
 
 @Composable
 fun AndroidAppTemplateTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false, // isSystemInDarkTheme(), // todo 跟随手机日夜模式变化
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false, // todo 动态主题颜色：根据壁纸动态变化
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -49,13 +39,12 @@ fun AndroidAppTemplateTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
 
 
-    // todo 根据需求来决定
+// todo 根据需求来决定：状态栏如何控制，目前是通过第三方库，下面代码是 compose 的控制方法
 //    val view = LocalView.current
 //    if (!view.isInEditMode) {
 //        SideEffect {
