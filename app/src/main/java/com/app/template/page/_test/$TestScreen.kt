@@ -1,5 +1,7 @@
 package com.app.template.page._test
 
+import android.content.Intent
+import android.view.RoundedCorner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -7,7 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -22,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,6 +46,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Destination<RootGraph>
 @Composable
 fun TestScreen(navigator: DestinationsNavigator) {
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -59,6 +66,18 @@ fun TestScreen(navigator: DestinationsNavigator) {
                 supportingContent = { Text(text = "⚠️ 使用完：记得清除日志", color = MaterialTheme.colorScheme.error, fontSize = 10.sp)},
                 modifier = Modifier.clickable { navigator.navigate(LogcatTestScreenDestination()) }
             )
+            ListItem(
+                headlineContent = { Text(text = "网络监控（Chucker）") },
+                modifier = Modifier.clickable {
+                    context.startActivity(Intent().apply { setClassName("com.app.template","com.chuckerteam.chucker.internal.ui.MainActivity") })
+                }
+            )
+            ListItem(
+                headlineContent = { Text(text = "内存泄露（Leaks）") },
+                modifier = Modifier.clickable {
+                    context.startActivity(Intent().apply { setClassName("com.app.template","leakcanary.internal.activity.LeakActivity") })
+                }
+            )
         }
     }
 }
@@ -72,13 +91,14 @@ fun TestFAB(onClick: () -> Unit) {
         // todo 当打印日志时，可以显示一个指示
         SmallFloatingActionButton(
             modifier = Modifier.padding(end = 15.dp, bottom = 45.dp),
+            shape = RoundedCornerShape(5.dp),
             onClick = onClick,
             content = {
                 BadgedBox(
                     badge = {
                     },
                     content = {
-                        Icon(Icons.Filled.Info, tint = MaterialTheme.colorScheme.error, contentDescription = "Test")
+                        Icon(Icons.Filled.Build, tint = MaterialTheme.colorScheme.error, contentDescription = "Test")
                     }
                 )
             })

@@ -1,5 +1,6 @@
 package com.app.network
 
+import com.app.base.BaseApplication
 import com.app.network.adapter.BigDecimalAdapter
 import com.app.network.adapter.DefaultOnDataMismatchAdapter
 import com.app.network.adapter.FilterNullStringFromListAdapter
@@ -9,6 +10,7 @@ import com.app.network.interceptor.CookiesInterceptor
 import com.app.network.interceptor.HeaderInterceptor
 import com.app.network.interceptor.logInterceptor
 import com.app.network.monitor.NetworkEventListener
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.squareup.moshi.DefaultIfNullFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -58,6 +60,7 @@ object HttpManager {
 
         build.eventListener(NetworkEventListener()) // 用来记录网络请求历史
 
+        build.addInterceptor(ChuckerInterceptor(BaseApplication.INSTANCE)) // 用来记录网络请求便于查看和测试
         build.addInterceptor(CookiesInterceptor())
         build.addInterceptor(HeaderInterceptor())
         build.addInterceptor(logInterceptor)

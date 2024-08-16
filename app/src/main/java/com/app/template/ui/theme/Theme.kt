@@ -25,6 +25,7 @@ private val LightColorScheme = lightColorScheme(
     surface = Color.White,
     background = Color.White,
     surfaceTint = Color.White, // todo 同上
+    primaryContainer = Color.White, // 浮动按钮的背景
 )
 
 @Composable

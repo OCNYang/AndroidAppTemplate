@@ -18,7 +18,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -39,6 +42,8 @@ dependencies {
     implementation(project(":base"))
     implementation(project(":api"))
     implementation(project(":base"))
+
+    // 网络监控
     implementation(project(":network-monitor"))
 
 //    testImplementation(libs.junit)
@@ -56,5 +61,9 @@ dependencies {
     // 依赖 autoService 库
     implementation("com.google.auto.service:auto-service-annotations:1.1.1")
     kapt("com.google.auto.service:auto-service:1.1.1")
+
+    // 网络请求日志
+    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
 
 }

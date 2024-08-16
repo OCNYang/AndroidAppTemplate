@@ -306,3 +306,10 @@ Looper.myQueue().addIdleHandler(MyIdleHandler())
 ## Compose 库用法例子
 
 [material3](https://github.com/JetBrains/compose-multiplatform-core/tree/3065673e475673db51517136ad1523e51bd455da/compose/material3/material3/samples/src/main/java/androidx/compose/material3/samples)
+
+
+## 网络请求监控便于测试
+
+[chucker](https://github.com/ChuckerTeam/chucker)
+
+> 如果应用有通知权限，将会将网络请求记录显示在 通知 上
