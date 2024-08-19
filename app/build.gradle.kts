@@ -10,7 +10,7 @@ android {
     compileSdk = libs.versions.targetSDK.get().toInt()
 
     defaultConfig {
-        applicationId = "com.app.template" // TODO: Change package name
+        applicationId = libs.versions.applicationId.get() // TODO: change it
         minSdk = libs.versions.minSDK.get().toInt()
         targetSdk = libs.versions.targetSDK.get().toInt()
         versionCode = 1

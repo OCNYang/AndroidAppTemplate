@@ -20,7 +20,12 @@ fun LaunchedEffectStrict(
     viewModelKey: String? = null,
     viewModel: _LaunchedOnceViewModel = androidx.lifecycle.viewmodel.compose.viewModel(key = viewModelKey),
     block: suspend CoroutineScope.() -> Unit,
-) = LaunchedEffectStrict(key1 = key1, viewModelKey = viewModelKey, viewModel = viewModel, blocks = arrayOf(block))
+) = LaunchedEffectStrict(
+    key1 = key1,
+    viewModelKey = viewModelKey,
+    viewModel = viewModel,
+    blocks = arrayOf(block)
+)
 
 @Composable
 fun LaunchedEffectStrict(
@@ -47,4 +52,33 @@ class _LaunchedOnceViewModel : ViewModel() {
     }
 }
 
+
+/**
+ * 重载个更方便理解的名字
+ */
+@Composable
+fun LaunchedOnce(
+    key1: Any? = null,
+    viewModelKey: String? = null,
+    viewModel: _LaunchedOnceViewModel = androidx.lifecycle.viewmodel.compose.viewModel(key = viewModelKey),
+    block: suspend CoroutineScope.() -> Unit,
+) = LaunchedEffectStrict(
+    key1 = key1,
+    viewModelKey = viewModelKey,
+    viewModel = viewModel,
+    blocks = arrayOf(block)
+)
+
+@Composable
+fun LaunchedOnce(
+    key1: Any? = null,
+    viewModelKey: String? = null,
+    viewModel: _LaunchedOnceViewModel = androidx.lifecycle.viewmodel.compose.viewModel(key = viewModelKey),
+    vararg blocks: suspend CoroutineScope.() -> Unit,
+) = LaunchedEffectStrict(
+    key1 = key1,
+    viewModelKey = viewModelKey,
+    viewModel = viewModel,
+    blocks = blocks
+)
 

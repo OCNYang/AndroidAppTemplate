@@ -69,13 +69,13 @@ fun TestScreen(navigator: DestinationsNavigator) {
             ListItem(
                 headlineContent = { Text(text = "网络监控（Chucker）") },
                 modifier = Modifier.clickable {
-                    context.startActivity(Intent().apply { setClassName("com.app.template","com.chuckerteam.chucker.internal.ui.MainActivity") })
+                    context.startActivity(Intent().apply { setClassName(BaseApplication.VERSION_INFO.third,"com.chuckerteam.chucker.internal.ui.MainActivity") })
                 }
             )
             ListItem(
                 headlineContent = { Text(text = "内存泄露（Leaks）") },
                 modifier = Modifier.clickable {
-                    context.startActivity(Intent().apply { setClassName("com.app.template","leakcanary.internal.activity.LeakActivity") })
+                    context.startActivity(Intent().apply { setClassName(BaseApplication.VERSION_INFO.third,"leakcanary.internal.activity.LeakActivity") })
                 }
             )
         }

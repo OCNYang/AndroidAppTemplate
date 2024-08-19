@@ -24,7 +24,6 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  *
  * 携带 SnackBar
  * 使用（已封装好，直接传入要显示的字符串即可）：showSnackBar(SnackBarAction("msg")){result-> }
- * todo: 日志中会有报错
  */
 @Composable
 fun Scaffold(

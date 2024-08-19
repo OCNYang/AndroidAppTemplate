@@ -38,6 +38,7 @@ import coil.request.CachePolicy
 import coil.request.ErrorResult
 import coil.request.ImageRequest
 import coil.request.SuccessResult
+import com.app.base.BaseApplication
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
@@ -89,11 +90,11 @@ class MyGlanceAppWidget : GlanceAppWidget() {
             Row(horizontalAlignment = Alignment.CenterHorizontally) {
                 Button(
                     text = "Home",
-                    onClick = actionStartActivity(componentName = ComponentName("com.app.template", "com.app.template.MainActivity"))
+                    onClick = actionStartActivity(componentName = ComponentName(BaseApplication.VERSION_INFO.third, "com.app.template.MainActivity"))
                 )
                 Button(
                     text = "Work",
-                    onClick = actionStartActivity(componentName = ComponentName("com.app.template", "com.app.template.MainActivity"))
+                    onClick = actionStartActivity(componentName = ComponentName(BaseApplication.VERSION_INFO.third, "com.app.template.MainActivity"))
                 )
             }
         }

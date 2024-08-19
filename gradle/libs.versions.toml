@@ -1,9 +1,13 @@
 [versions]
+# 应用信息
+minSDK = "26"
+targetSDK = "34"
+applicationId = "com.ocnyang.template_app"
+
 # 下面2个版本要保持一致，不然会不兼容
 kotlin = "2.0.0-RC3"
 googleKsp = "2.0.0-RC3-1.0.20"
-minSDK = "26"
-targetSDK = "34"
+
 composeBom = "2024.06.00"
 agp = "8.3.2"
 coilCompose = "2.3.0"

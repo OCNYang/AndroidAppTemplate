@@ -25,11 +25,12 @@ abstract class BaseApplication : Application() {
         NetworkChangeListener.init(this)
         AppForegroundListener().init()
         StatusBoxGlobalConfig.initDef()
+
     }
 
     companion object {
         @JvmStatic
-        val TAG = "com.app.template"
+        val TAG = "[TAG_LOG]"
 
         @JvmStatic
         lateinit var INSTANCE: BaseApplication
@@ -71,7 +72,11 @@ abstract class BaseApplication : Application() {
             } else {
                 packageManager.getPackageInfo(packageName, 0)
             }
-            Triple(PackageInfoCompat.getLongVersionCode(packageInfo), packageInfo.versionName, packageName)
+            Triple(
+                PackageInfoCompat.getLongVersionCode(packageInfo),
+                packageInfo.versionName,
+                packageName
+            )
         }
     }
 }
