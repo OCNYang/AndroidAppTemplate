@@ -114,7 +114,10 @@ fun HomeScreen(
                     Text(text = "跳转列表")
                 }
                 Button(onClick = {
-                    showSnackBar(SnackBarAction("snackbar",true))
+                    showSnackBar(SnackBarAction("snackbar", true, actionLabel = "wow")) { snackbarResult ->
+                        Log.e("----000-----$snackbarResult")
+
+                    }
                 }) {
                     Text(text = "SnackBar")
                 }

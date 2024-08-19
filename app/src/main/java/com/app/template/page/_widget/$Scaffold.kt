@@ -8,6 +8,7 @@ import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
@@ -19,10 +20,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 /**
- * 携带 SnackBar
- * 使用（已封装好，直接传入要显示的字符串即可）：showSnackBar(SnackBarAction("msg"))
  *
- * ⚠️不支持按钮，因为没有返回值所以是无法响应点击事件的
+ * 携带 SnackBar
+ * 使用（已封装好，直接传入要显示的字符串即可）：showSnackBar(SnackBarAction("msg")){result-> }
+ *
  */
 @Composable
 fun Scaffold(
@@ -36,12 +37,12 @@ fun Scaffold(
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     scope: CoroutineScope = rememberCoroutineScope(),
-    showSnackbar: (SnackBarAction) -> Unit = { snackbarVisuals ->
+    showSnackbar: (SnackBarAction, (SnackbarResult) -> Unit) -> Unit = { snackbarVisuals, resultListener ->
         scope.launch {
-            snackbarHostState.showSnackbar(snackbarVisuals)
+            resultListener(snackbarHostState.showSnackbar(snackbarVisuals))
         }
     },
-    content: @Composable (PaddingValues, (SnackBarAction) -> Unit) -> Unit
+    content: @Composable (PaddingValues, (SnackBarAction, (SnackbarResult) -> Unit) -> Unit) -> Unit
 ) {
     androidx.compose.material3.Scaffold(
         modifier = modifier,
@@ -102,8 +103,5 @@ data class SnackBarAction(
     override var message: String,
     override var withDismissAction: Boolean = false,
     override var duration: SnackbarDuration = SnackbarDuration.Short,
-    @Deprecated(
-        "USELESS: Because no response event was returned.",
-        level = DeprecationLevel.ERROR
-    ) override val actionLabel: String? = null,
+    override val actionLabel: String? = null,
 ) : SnackbarVisuals
