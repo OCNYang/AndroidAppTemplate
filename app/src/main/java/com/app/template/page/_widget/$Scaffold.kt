@@ -18,12 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  *
  * 携带 SnackBar
  * 使用（已封装好，直接传入要显示的字符串即可）：showSnackBar(SnackBarAction("msg")){result-> }
- *
+ * todo: 日志中会有报错
  */
 @Composable
 fun Scaffold(
@@ -37,12 +38,12 @@ fun Scaffold(
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     scope: CoroutineScope = rememberCoroutineScope(),
-    showSnackbar: (SnackBarAction, (SnackbarResult) -> Unit) -> Unit = { snackbarVisuals, resultListener ->
+    showSnackbar: (SnackBarAction, suspend CoroutineScope.(SnackbarResult) -> Unit) -> Unit = { snackbarVisuals, resultListener ->
         scope.launch {
             resultListener(snackbarHostState.showSnackbar(snackbarVisuals))
         }
     },
-    content: @Composable (PaddingValues, (SnackBarAction, (SnackbarResult) -> Unit) -> Unit) -> Unit
+    content: @Composable (PaddingValues, (SnackBarAction, suspend CoroutineScope.(SnackbarResult) -> Unit) -> Unit) -> Unit
 ) {
     androidx.compose.material3.Scaffold(
         modifier = modifier,

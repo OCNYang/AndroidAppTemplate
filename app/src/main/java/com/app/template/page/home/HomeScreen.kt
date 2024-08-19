@@ -36,6 +36,7 @@ import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.DetailScreenDestination
 import com.ramcosta.composedestinations.generated.destinations.ListScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.coroutines.delay
 
 @SuppressLint("SetJavaScriptEnabled")
 @Destination<RootGraph>(start = true)
@@ -116,7 +117,6 @@ fun HomeScreen(
                 Button(onClick = {
                     showSnackBar(SnackBarAction("snackbar", true, actionLabel = "wow")) { snackbarResult ->
                         Log.e("----000-----$snackbarResult")
-
                     }
                 }) {
                     Text(text = "SnackBar")

@@ -3,6 +3,7 @@ package com.app.glance
 import android.content.ComponentName
 import android.content.Context
 import android.graphics.Bitmap
+import androidx.compose.animation.Crossfade
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -85,7 +86,6 @@ class MyGlanceAppWidget : GlanceAppWidget() {
                 modifier = GlanceModifier.fillMaxWidth().height(100.dp)
             )
             Text(text = "Where to?", modifier = GlanceModifier.padding(12.dp))
-            Text(text = "Where to?", modifier = GlanceModifier.padding(12.dp))
             Row(horizontalAlignment = Alignment.CenterHorizontally) {
                 Button(
                     text = "Home",
@@ -100,7 +100,7 @@ class MyGlanceAppWidget : GlanceAppWidget() {
     }
 
     private fun getImageUrl(size: DpSize) =
-        "https://q4.itc.cn/q_70/images03/20240329/2351c00ceda643ac8e44ae7037591ec6.jpeg"
+        "https://c.53326.com/d/file/lan2018060915/zm02z42l2pj.jpg"
 
     private suspend fun Context.getRandomImage(url: String, force: Boolean = false): Bitmap? {
         val request = ImageRequest.Builder(this).data(url).apply {
