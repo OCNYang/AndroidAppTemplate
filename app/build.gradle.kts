@@ -25,7 +25,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -56,15 +59,24 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-//    implementation(libs.androidx.material3)
-    implementation("androidx.compose.material3:material3-android:1.3.0-beta05") // 为了使用最新版本的控件
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose) {// 这里穿透依赖了 lifecycle-viewModel
+        exclude(group = "androidx.lifecycle")
+    }
     implementation(libs.androidx.paging.compose)
 
     implementation(project(":base"))
-    implementation(project(":api"))
-    implementation(project(":glance"))
-    runtimeOnly(project(":network"))
+
+    implementation(project(":api_base"))
+    implementation(project(":api_main"))
+    implementation(project(":api_main_imp"))
+    implementation(project(":library_webview"))
+    implementation(project(":library_image_load"))
+    implementation(project(":library_ui_uniform"))
+
+
+    implementation(project(":library_glance"))
+    runtimeOnly(project(":library_network"))
 
 //    implementation(libs.androidx.constraintlayout.compose)
 //    implementation(libs.androidx.compose.runtime)
@@ -83,9 +95,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.androidx.core.splashscreen)
-    implementation("com.github.OCNYang:Compose-SpinKit:1.0.3") {
-        exclude("com.github.jitpack")
-    }
+
 
     // 路由导航封装库
     implementation(libs.compose.destinations.core)

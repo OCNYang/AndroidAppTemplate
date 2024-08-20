@@ -43,7 +43,7 @@ class MainActivity : BaseActivity() {
                     val navController: NavHostController = engine.rememberNavController()
                     DestinationsNavHost(
                         navGraph = NavGraphs.root,
-                        startRoute = NavGraphs.root.startRoute,
+//                        start = NavGraphs.root.startRoute,
                         engine = engine,
                         navController = navController
                     )

@@ -21,16 +21,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.multidex.BuildConfig
 import com.app.base.AppLifecycleViewModel
-import com.app.template.page._widget.ImageX
+import com.app.library_ui_uniform._widget.ImageX
 import com.app.base.Log
 import com.app.base.LogX
 import com.app.base.NetworkChangeViewModel
 import com.app.base.appViewModel
-import com.app.template.page._widget.Scaffold
-import com.app.template.page._widget.SnackBarAction
-import com.app.template.page._widget.WebViewCompose
+import com.app.library_ui_uniform._widget.Scaffold
+import com.app.library_ui_uniform._widget.SnackBarAction
+import com.app.library_ui_uniform._widget.WebViewCompose
 import com.app.template.viewmodel.HomeViewModel
-import com.app.template.viewmodel.LaunchedOnce
+import com.app.base.`$viewmodel`.LaunchedOnce
 import com.ocnyang.status_box.StateContainer
 import com.ocnyang.status_box.StatusBox
 import com.ocnyang.status_box.UIState
@@ -39,7 +39,6 @@ import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.DetailScreenDestination
 import com.ramcosta.composedestinations.generated.destinations.ListScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import kotlinx.coroutines.delay
 
 @SuppressLint("SetJavaScriptEnabled")
 @Destination<RootGraph>(start = true)
@@ -118,7 +117,13 @@ fun HomeScreen(
                     Text(text = "跳转列表")
                 }
                 Button(onClick = {
-                    showSnackBar(SnackBarAction("snackbar", true, actionLabel = "wow")) { snackbarResult ->
+                    showSnackBar(
+                        SnackBarAction(
+                            "snackbar",
+                            true,
+                            actionLabel = "wow"
+                        )
+                    ) { snackbarResult ->
                         Log.e("----000-----$snackbarResult")
                     }
                 }) {

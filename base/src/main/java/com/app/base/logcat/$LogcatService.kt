@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
-import android.text.TextUtils
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import com.app.base.NotificationChannelInfo
@@ -91,6 +90,7 @@ class LogcatService : Service() {
             val notification = NotificationCompat.Builder(this, NotificationChannelInfo.FOREGROUND_SERVICE.ID)
                 .setOngoing(true)
                 .build()
+
             ServiceCompat.startForeground(
                 this,
                 Random().nextInt(Int.MAX_VALUE),

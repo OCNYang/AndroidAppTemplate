@@ -31,9 +31,9 @@
             <meta-data
                 android:name="com.app.base.MMKVInitializer"
                 android:value="androidx.startup" />
-            <meta-data
-                android:name="com.app.base.X5Initializer"
-                android:value="androidx.startup" />
+<!--            <meta-data-->
+<!--                android:name="com.app.base.X5Initializer"-->
+<!--                android:value="androidx.startup" />-->
         </provider>
     </application>
 </manifest>

@@ -3,7 +3,6 @@ package com.app.base
 import android.content.Context
 import android.util.Log
 import androidx.startup.Initializer
-import com.app.webview_x5.X5
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.PrettyFormatStrategy
 import com.tencent.mmkv.MMKV
@@ -45,19 +44,3 @@ class MMKVInitializer : Initializer<MMKV> {
     }
 }
 
-
-/**
- * App StartUp WebView X5 初始化
- *
- * 初始化是在 `AndroidManifest.xml` 中
- */
-class X5Initializer : Initializer<X5> {
-    override fun create(context: Context): X5 {
-        X5.init(context)
-        return X5
-    }
-
-    override fun dependencies(): List<Class<out Initializer<*>>> {
-        return emptyList()
-    }
-}

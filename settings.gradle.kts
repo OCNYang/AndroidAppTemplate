@@ -37,13 +37,36 @@ dependencyResolutionManagement {
 rootProject.name = "AndroidAppTemplate"
 include(":app")
 include(":base")
-include(":network")
-project(":network").projectDir = File(settingsDir, "./network/network")
-include(":api")
-project(":api").projectDir = File(settingsDir, "./network/api")
-include(":webview-x5")
-project(":webview-x5").projectDir = File(settingsDir, "./webview/webview-x5")
-include(":glance")
-include(":aop")
-include(":network-monitor")
-project(":network-monitor").projectDir = File(settingsDir, "./network/network-monitor")
+
+// library
+include(":library_network")
+project(":library_network").projectDir = File(settingsDir, "./library/network/library_network")
+include(":library_network_monitor")
+project(":library_network_monitor").projectDir = File(settingsDir, "./library/network/library_network_monitor")
+include(":library_webview")
+project(":library_webview").projectDir = File(settingsDir, "./library/library_webview")
+include(":library_glance")
+project(":library_glance").projectDir = File(settingsDir, "./library/library_glance")
+include(":library_aop")
+project(":library_aop").projectDir = File(settingsDir, "./library/library_aop")
+include(":library_image_load")
+project(":library_image_load").projectDir = File(settingsDir, "./library/library_image_load")
+include(":library_ui_uniform")
+project(":library_ui_uniform").projectDir = File(settingsDir, "./library/library_ui_uniform")
+
+// api
+include(":api_base")
+project(":api_base").projectDir = File(settingsDir, "./api/api_base")
+include(":api_main")
+project(":api_main").projectDir = File(settingsDir, "./api/api_main")
+
+// api_imp
+include(":api_main_imp")
+project(":api_main_imp").projectDir = File(settingsDir, "./api_imp/api_main_imp")
+
+
+// module
+include(":module_main")
+project(":module_main").projectDir = File(settingsDir, "./module/module_main")
+
+

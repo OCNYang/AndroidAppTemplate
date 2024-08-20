@@ -6,8 +6,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.text.TextUtils
 import androidx.core.content.pm.PackageInfoCompat
-import com.ocnyang.status_box.StatusBoxGlobalConfig
-import com.ocnyang.status_box.initDef
 import com.tencent.mmkv.MMKV
 
 /**
@@ -24,7 +22,6 @@ abstract class BaseApplication : Application() {
 
         NetworkChangeListener.init(this)
         AppForegroundListener().init()
-        StatusBoxGlobalConfig.initDef()
 
     }
 
@@ -74,7 +71,7 @@ abstract class BaseApplication : Application() {
             }
             Triple(
                 PackageInfoCompat.getLongVersionCode(packageInfo),
-                packageInfo.versionName,
+                packageInfo.versionName ?: "0.0.0",
                 packageName
             )
         }

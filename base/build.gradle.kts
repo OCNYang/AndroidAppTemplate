@@ -34,20 +34,20 @@ android {
 }
 
 dependencies {
-
-//    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-//    implementation(libs.material)
-//    testImplementation(libs.junit)
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation(libs.androidx.activity.compose)
     api(libs.androidx.lifecycle.process)
+    implementation(libs.androidx.lifecycle.viewmodel)
+
+    implementation(libs.androidx.navigation.compose)
 
     // 启动优化
     api("androidx.startup:startup-runtime:1.1.1")
 
-    api(project(":webview-x5"))
+    // 状态栏 ✅ [https://github.com/gyf-dev/ImmersionBar]
+    api("com.geyifeng.immersionbar:immersionbar:3.2.2")
+    api("com.geyifeng.immersionbar:immersionbar-ktx:3.2.2")
 
     // 权限动态申请 ✅ [https://github.com/getActivity/XXPermissions]
     api(libs.xxpermissions)
@@ -61,24 +61,10 @@ dependencies {
     // 数据本地化 ✅ [https://github.com/Tencent/MMKV]
     implementation(libs.mmkv)
 
-    // 图片加载 ✅ [https://github.com/coil-kt/coil]
-    api(libs.coil)
-    api(libs.coil.compose) {
-        exclude(group = "androidx.core")
-        exclude(group = "androidx.activity")
-    }
 
     // AndroidUtilCode ✅ [https://github.com/Blankj/AndroidUtilCode]
     api(libs.utilcodex) {
         exclude(group = "androidx.appcompat")
-    }
-
-    // 状态栏 ✅ [https://github.com/gyf-dev/ImmersionBar]
-    api("com.geyifeng.immersionbar:immersionbar:3.2.2")
-    api("com.geyifeng.immersionbar:immersionbar-ktx:3.2.2")
-
-    api("com.github.ocnyang:compose-status-box:1.0.1") {
-        // exclude(group = "androidx.compose")
     }
 
     // 多语言切换
