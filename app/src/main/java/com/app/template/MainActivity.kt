@@ -5,6 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
@@ -36,25 +37,31 @@ class MainActivity : BaseActivity() {
 
         setContent {
             AndroidAppTemplateTheme(dynamicColor = false) {
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    // TemplateApp()
+                // 解决 compose 1.7 和 lifecycle 2.8 版本兼容问题（可能并不局限这两个版本）
+                // 详见：https://issuetracker.google.com/issues/336842920#comment8
+                CompositionLocalProvider(value = androidx.lifecycle.compose.LocalLifecycleOwner provides androidx.compose.ui.platform.LocalLifecycleOwner.current) {
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        // TemplateApp()
 
-                    val engine: NavHostEngine = rememberNavHostEngine()
-                    val navController: NavHostController = engine.rememberNavController()
-                    DestinationsNavHost(
-                        navGraph = NavGraphs.root,
-//                        start = NavGraphs.root.startRoute,
-                        engine = engine,
-                        navController = navController
-                    )
+                        val engine: NavHostEngine = rememberNavHostEngine()
+                        val navController: NavHostController = engine.rememberNavController()
+                        DestinationsNavHost(
+                            navGraph = NavGraphs.root,
+                            engine = engine,
+                            navController = navController
+                        )
 
-                    if (BaseApplication.TEST) {
-                        TestFAB(onClick = {
-                            val testScreenRoute = TestScreenDestination().route
-                            if (testScreenRoute != navController.currentDestination?.route) {
-                                navController.navigate(testScreenRoute)
-                            }
-                        })
+                        if (BaseApplication.TEST) {
+                            TestFAB(onClick = {
+                                val testScreenRoute = TestScreenDestination().route
+                                if (testScreenRoute != navController.currentDestination?.route) {
+                                    navController.navigate(testScreenRoute)
+                                }
+                            })
+                        }
                     }
                 }
             }

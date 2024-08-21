@@ -34,6 +34,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.lifecycle.process)
+
     implementation(project(":base"))
 
     // 网络监控

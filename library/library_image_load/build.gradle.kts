@@ -37,9 +37,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.material3)
+    implementation(libs.androidx.compose.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -49,5 +47,6 @@ dependencies {
     api(libs.coil.compose) {
         exclude(group = "androidx.core")
         exclude(group = "androidx.activity")
+        exclude(group = "androidx.compose.ui", module = "ui")
     }
 }

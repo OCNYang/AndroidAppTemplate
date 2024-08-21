@@ -48,8 +48,21 @@ android {
     }
 }
 
-dependencies {
+// 全局强制统一版本
+//configurations.all {
+//    resolutionStrategy {
+//        force("androidx.compose.ui:ui-android:1.7.0-beta07")
+//    }
+//}
 
+// 全局排除
+//configurations {
+//    implementation {
+//        exclude("androidx.compose.ui", "ui")
+//    }
+//}
+
+dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
@@ -59,10 +72,8 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.compose) {// 这里穿透依赖了 lifecycle-viewModel
-        exclude(group = "androidx.lifecycle")
-    }
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.paging.compose)
 
     implementation(project(":base"))

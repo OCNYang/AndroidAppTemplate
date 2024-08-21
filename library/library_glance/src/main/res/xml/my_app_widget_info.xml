@@ -6,7 +6,7 @@
     android:minHeight="69dp"
     android:minResizeWidth="110dp"
     android:minResizeHeight="69dp"
-    android:previewImage="@drawable/ic_empty"
+    android:previewImage="@drawable/ic_camera"
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="4"
     android:targetCellHeight="2"
