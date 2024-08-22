@@ -61,7 +61,7 @@ class _LaunchedOnceViewModel : ViewModel() {
 fun LaunchedOnce(
     key1: Any? = null,
     viewModelKey: String? = null,
-    viewModel: _LaunchedOnceViewModel = androidx.lifecycle.viewmodel.compose.viewModel(key = viewModelKey),
+    viewModel: _LaunchedOnceViewModel = viewModel(key = viewModelKey),
     block: suspend CoroutineScope.() -> Unit,
 ) = LaunchedEffectStrict(
     key1 = key1,

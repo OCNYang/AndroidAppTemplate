@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.app.module_main"
+    namespace = "com.app.module_dev_tools"
     compileSdk = libs.versions.targetSDK.get().toInt()
 
     defaultConfig {
@@ -38,12 +38,13 @@ android {
 
     ksp {
         arg("compose-destinations.mode", "navgraphs")
-        arg("compose-destinations.moduleName", "main")
+        arg("compose-destinations.moduleName", "dev_tools")
         arg("compose-destinations.useComposableVisibility", "true")
     }
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.material3)
@@ -51,15 +52,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.paging.compose)
-
     implementation(project(":base"))
     implementation(project(":route"))
-    implementation(project(":library_ui_uniform"))
-    implementation(project(":api_main"))
-    implementation(project(":library_webview"))
 
     ksp(libs.compose.destinations.ksp)
 }

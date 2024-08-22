@@ -1,12 +1,11 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    alias(libs.plugins.compose)
-    alias(libs.plugins.googleKsp)
+    // alias(libs.plugins.googleKsp)
 }
 
 android {
-    namespace = "com.app.module_main"
+    namespace = "com.app.route"
     compileSdk = libs.versions.targetSDK.get().toInt()
 
     defaultConfig {
@@ -32,34 +31,22 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-    }
-
-    ksp {
-        arg("compose-destinations.mode", "navgraphs")
-        arg("compose-destinations.moduleName", "main")
-        arg("compose-destinations.useComposableVisibility", "true")
-    }
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.compose.material3)
+
+//    implementation(libs.androidx.core.ktx)
+//    implementation(libs.androidx.appcompat)
+//    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
 
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.paging.compose)
-
-    implementation(project(":base"))
-    implementation(project(":route"))
-    implementation(project(":library_ui_uniform"))
-    implementation(project(":api_main"))
-    implementation(project(":library_webview"))
-
-    ksp(libs.compose.destinations.ksp)
+    // 路由导航封装库
+    api(libs.compose.destinations.core)
+    // ksp(libs.compose.destinations.ksp)
+    // for bottom sheet destination support, also add
+    api(libs.compose.destinations.bottom.sheet)
+//    api(libs.androidx.navigation.compose)
 }

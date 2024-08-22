@@ -68,5 +68,7 @@ project(":api_main_imp").projectDir = File(settingsDir, "./api_imp/api_main_imp"
 // module
 include(":module_main")
 project(":module_main").projectDir = File(settingsDir, "./module/module_main")
+include(":module_dev_tools")
+project(":module_dev_tools").projectDir = File(settingsDir, "./module/module_dev_tools")
 
-
+include(":route")

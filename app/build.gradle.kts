@@ -62,6 +62,13 @@ android {
 //    }
 //}
 
+
+ksp {
+    arg("compose-destinations.mode", "navgraphs")
+    arg("compose-destinations.moduleName", "root")
+    arg("compose-destinations.useComposableVisibility", "true")
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -73,10 +80,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.paging.compose)
+//    implementation(libs.androidx.navigation.compose)
 
     implementation(project(":base"))
+    implementation(project(":route"))
 
     implementation(project(":api_base"))
     implementation(project(":api_main"))
@@ -84,6 +91,9 @@ dependencies {
     implementation(project(":library_webview"))
     implementation(project(":library_image_load"))
     implementation(project(":library_ui_uniform"))
+
+    implementation(project(":module_main"))
+    implementation(project(":module_dev_tools"))
 
 
     implementation(project(":library_glance"))
@@ -107,10 +117,5 @@ dependencies {
 
     implementation(libs.androidx.core.splashscreen)
 
-
-    // 路由导航封装库
-    implementation(libs.compose.destinations.core)
     ksp(libs.compose.destinations.ksp)
-    // for bottom sheet destination support, also add
-    implementation(libs.compose.destinations.bottom.sheet)
 }

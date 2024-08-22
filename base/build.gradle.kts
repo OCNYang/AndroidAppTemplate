@@ -40,7 +40,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.viewmodel)
 
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
 
     // 启动优化
     api("androidx.startup:startup-runtime:1.1.1")
