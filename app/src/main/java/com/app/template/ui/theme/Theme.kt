@@ -28,6 +28,11 @@ private val LightColorScheme = lightColorScheme(
     primaryContainer = Color.White, // 浮动按钮的背景
 )
 
+/**
+ * 这里的主题没有放到 [ui_uniform] 模块 的原因
+ * 主题应该是 UI 标准化的一部分，但这里的标准化更多的是强调的 控件 的标准化；
+ * 对于颜色和主题，每个 App 应该有自己的风格，所以放到 主模块中控制
+ */
 @Composable
 fun AndroidAppTemplateTheme(
     darkTheme: Boolean = false, // isSystemInDarkTheme(), // todo 跟随手机日夜模式变化

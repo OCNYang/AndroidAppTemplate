@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.compose)
     alias(libs.plugins.googleKsp)
+    id("kotlin-kapt")
 }
 
 android {
@@ -94,6 +95,7 @@ dependencies {
 
     implementation(project(":module_main"))
     implementation(project(":module_dev_tools"))
+    implementation(project(":-module_spi_default"))
 
 
     implementation(project(":library_glance"))
@@ -118,4 +120,10 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
 
     ksp(libs.compose.destinations.ksp)
+
+
+    // 依赖 autoService 库
+    implementation("com.google.auto.service:auto-service-annotations:1.1.1")
+    kapt("com.google.auto.service:auto-service:1.1.1")
+
 }

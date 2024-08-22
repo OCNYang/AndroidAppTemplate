@@ -34,6 +34,7 @@ utilcodex = "1.31.1"
 gradlePluginPublish = "1.2.1"
 coreSplashscreen = "1.1.0-rc01"
 composeDestinations = "2.1.0-beta11"
+material = "1.10.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -74,6 +75,7 @@ mmkv = { module = "com.tencent:mmkv", version.ref = "mmkv" }
 reactivenetwork-rx2 = { module = "com.github.pwittchen:reactivenetwork-rx2", version.ref = "reactivenetworkRx2" }
 # toast-utils = { module = "com.github.getActivity:ToastUtils", version.ref = "toastutils" }
 utilcodex = { module = "com.blankj:utilcodex", version.ref = "utilcodex" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

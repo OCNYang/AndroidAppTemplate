@@ -70,5 +70,7 @@ include(":module_main")
 project(":module_main").projectDir = File(settingsDir, "./module/module_main")
 include(":module_dev_tools")
 project(":module_dev_tools").projectDir = File(settingsDir, "./module/module_dev_tools")
+include(":-module_spi_default")
+project(":-module_spi_default").projectDir = File(settingsDir, "./module/-module_spi_default")
 
 include(":route")

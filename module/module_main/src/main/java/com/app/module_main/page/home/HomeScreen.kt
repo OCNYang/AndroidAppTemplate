@@ -31,6 +31,7 @@ import com.app.library_ui_uniform._widget.SnackBarAction
 import com.app.library_ui_uniform._widget.WebViewCompose
 import com.app.module_main.viewmodel.HomeViewModel
 import com.app.base.`$viewmodel`.LaunchedOnce
+import com.app.module_main.SPIMain
 import com.app.module_main.page.MainGraph
 import com.ocnyang.status_box.StateContainer
 import com.ocnyang.status_box.StatusBox
@@ -129,6 +130,11 @@ fun HomeScreen(
                     }
                 }) {
                     Text(text = "SnackBar")
+                }
+                Button(onClick = {
+                    SPIMain.INSTANCE?.navigationToTestScreen(navigator)
+                }) {
+                    Text(text = "跳转 Test")
                 }
             }
 
