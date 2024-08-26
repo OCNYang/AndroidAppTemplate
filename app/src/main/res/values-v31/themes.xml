@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--关于闪屏的设置可以参考：https://medium.com/@radomir9720/android-splash-screen-easy-setup-for-both-11-version-and-lower-and-12-287ccb86f9c7-->
+    <style name="Theme.SplashScreen.MySplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_launcher_background</item>
+        <!--    todo 应用图标，如果图标大小为X，则可见区域为中心区域的 X/1.5    -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_ic_logo</item>
+        <!--        <item name="windowSplashScreenAnimationDuration">200</item>-->
+        <!--        <item name="android:windowSplashScreenIconBackgroundColor">#FFED9FA3</item>-->
+        <!--    todo 品牌图片：宽高比5:2    -->
+        <item name="android:windowSplashScreenBrandingImage">@drawable/splash_branding</item>
+        <item name="postSplashScreenTheme">@style/Theme.AndroidAppTemplate</item>
+    </style>
+</resources>
