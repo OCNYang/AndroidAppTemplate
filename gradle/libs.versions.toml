@@ -2,7 +2,7 @@
 # 应用信息
 minSDK = "26"
 targetSDK = "35"
-applicationId = "com.ocnyang.template_app"
+applicationId = "com.ocnyang.template_app" # 每次修改包名，记得全局搜索旧包名进行替换
 
 # 下面2个版本要保持一致，不然会不兼容
 kotlin = "2.0.20-RC2"

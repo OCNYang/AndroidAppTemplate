@@ -6,12 +6,13 @@ import android.net.Uri
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
+import com.app.glance.R
 
 fun buildAuthorShortcut(context: Context) {
     val shortcut = ShortcutInfoCompat.Builder(context, "shortcut_author")
         .setShortLabel("关于作者")
         .setLongLabel("作者信息")
-        .setIcon(IconCompat.createWithResource(context, android.R.drawable.ic_menu_info_details))
+        .setIcon(IconCompat.createWithResource(context, R.drawable.ic_shortcut_author))
         .setIntent(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ocnyang")))
         .build()
     ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)

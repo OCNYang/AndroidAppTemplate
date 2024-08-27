@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.googleKsp)
     id("kotlin-kapt")
+    id("kotlinx-serialization")
 }
 
 android {

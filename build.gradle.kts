@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinJvm) apply false
     alias(libs.plugins.compose) apply false
 //    alias(libs.plugins.kotlin.parcelize) apply false
+    id("org.jetbrains.kotlin.plugin.serialization").version("1.6.21")
 }
