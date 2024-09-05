@@ -7,6 +7,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
+import kotlin.time.measureTime
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -21,4 +22,9 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.app.template", appContext.packageName)
     }
+}
+
+
+fun ttt(){
+    measureTime {  }
 }

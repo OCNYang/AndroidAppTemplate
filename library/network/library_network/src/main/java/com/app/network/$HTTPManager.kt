@@ -14,6 +14,7 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.squareup.moshi.DefaultIfNullFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import io.reactivex.functions.Function
 import okhttp3.OkHttpClient
 import retrofit2.MonitorCallAdapterFactory
 import retrofit2.Retrofit
@@ -52,6 +53,39 @@ object HttpManager {
      */
     fun <T> create(apiService: Class<T>): T {
         return mRetrofit.create(apiService)
+
+    }
+
+    /**
+     * 自定义 Retrofit
+     * 比如，某个接口的 base_url 比较特殊
+     * @sample
+     * ```
+     * customCreate(apiService) {
+     *     baseUrl("https://github.com/ocnyang")
+     *     client(customOkHttpClient {
+     *         addInterceptor(HeaderInterceptor())
+     *     })
+     * }
+     * ```
+     */
+    fun <T> customCreate(
+        apiService: Class<T>,
+        custom: Retrofit.Builder.() -> Unit
+    ): T {
+        val customRetrofitBuilder = mRetrofit.newBuilder()
+        customRetrofitBuilder.custom()
+        return customRetrofitBuilder.build().create(apiService)
+    }
+
+    /**
+     * 自定义 okhttp
+     * 这里是为 [customCreate] 服务的
+     */
+    fun customOkHttpClient(custom: OkHttpClient.Builder.() -> Unit): OkHttpClient {
+        val newBuilder = initOkHttpClient().newBuilder()
+        newBuilder.custom()
+        return newBuilder.build()
     }
 
     /**

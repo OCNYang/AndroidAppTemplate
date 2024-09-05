@@ -1,5 +1,7 @@
 # Android App Template
 
+**单模块形式的架构请看分支： [v1.0.0](https://github.com/OCNYang/AndroidAppTemplate/tree/v1.0.0)**
+
 ![](./docs/AndroidAppTemplate.jpg)
 
 
@@ -170,3 +172,11 @@ Looper.myQueue().addIdleHandler(MyIdleHandler())
 [chucker](https://github.com/ChuckerTeam/chucker)
 
 > 如果应用有通知权限，将会将网络请求记录显示在 通知 上
+
+
+## library_aop
+
+通过 aop 技术做一些掌控全局性的能力。比如全局点击事件的监听；页面切换的监听；
+
+还有一个库：
+[compose 页面切换和点击 全局监听](https://github.com/ckenergy/ComposeEventTrack)
