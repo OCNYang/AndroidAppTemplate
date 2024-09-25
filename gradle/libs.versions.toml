@@ -3,13 +3,14 @@
 minSDK = "26"
 targetSDK = "35"
 applicationId = "com.ocnyang.template_app" # 每次修改包名，记得全局搜索旧包名进行替换
+apkConfig = { minSDK = 26, targetSDK = 35, id = "com.ocnyang.template_app" }
 
 # 下面2个版本要保持一致，不然会不兼容
 kotlin = "2.0.20-RC2"
 googleKsp = "2.0.20-RC2-1.0.24"
 
 composeBom = "2024.06.00"
-agp = "8.5.1"
+agp = "8.6.1"
 coilCompose = "2.3.0"
 coil = "2.6.0"
 glance = "1.0.0"
@@ -35,6 +36,7 @@ gradlePluginPublish = "1.2.1"
 coreSplashscreen = "1.1.0-rc01"
 composeDestinations = "2.1.0-beta11"
 material = "1.10.0"
+androidx-glance-preview = "1.1.0-rc01"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -76,6 +78,8 @@ reactivenetwork-rx2 = { module = "com.github.pwittchen:reactivenetwork-rx2", ver
 # toast-utils = { module = "com.github.getActivity:ToastUtils", version.ref = "toastutils" }
 utilcodex = { module = "com.blankj:utilcodex", version.ref = "utilcodex" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-glance-preview = { group = "androidx.glance", name = "glance-preview", version.ref = "androidx-glance-preview" }
+androidx-glance-appwidget-preview = { group = "androidx.glance", name = "glance-appwidget-preview", version.ref = "androidx-glance-preview" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

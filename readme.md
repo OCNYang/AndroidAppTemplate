@@ -1,6 +1,6 @@
 # Android App Template
 
-**单模块形式的架构请看分支： [v1.0.0](https://github.com/OCNYang/AndroidAppTemplate/tree/v1.0.0)**
+**简易形式的架构请看分支： [v1.0.0](https://github.com/OCNYang/AndroidAppTemplate/tree/v1.0.0)**（适合小项目）
 
 ![](./docs/AndroidAppTemplate.jpg)
 

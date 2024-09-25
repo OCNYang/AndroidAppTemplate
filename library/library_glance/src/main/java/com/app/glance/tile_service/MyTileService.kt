@@ -7,6 +7,9 @@ import android.os.Build
 import android.os.IBinder
 import android.service.quicksettings.TileService
 
+/**
+ * 手机系统下滑的控制中心中的 快捷方式；注册在 AndroidManifest.xml 中
+ */
 class MyTileService : TileService() {
 
     override fun onDestroy() {

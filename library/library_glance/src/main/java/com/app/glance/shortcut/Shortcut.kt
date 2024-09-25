@@ -8,10 +8,13 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import com.app.glance.R
 
+/**
+ * 应用图标长按的快捷菜单；在 MainActivity 中调用注册
+ */
 fun buildAuthorShortcut(context: Context) {
     val shortcut = ShortcutInfoCompat.Builder(context, "shortcut_author")
-        .setShortLabel("关于作者")
-        .setLongLabel("作者信息")
+        .setShortLabel("作者")
+        .setLongLabel("作者万岁")
         .setIcon(IconCompat.createWithResource(context, R.drawable.ic_shortcut_author))
         .setIntent(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ocnyang")))
         .build()

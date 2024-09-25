@@ -32,6 +32,8 @@ import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
+import androidx.glance.preview.ExperimentalGlancePreviewApi
+import androidx.glance.preview.Preview
 import androidx.glance.text.Text
 import coil.imageLoader
 import coil.request.CachePolicy
@@ -43,6 +45,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
+/**
+ * 桌面小部件的布局：其中使用的组件是 Glance 专有的
+ */
 class MyGlanceAppWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
 
@@ -51,9 +56,21 @@ class MyGlanceAppWidget : GlanceAppWidget() {
         }
 
         provideContent {
-            GlanceTheme {
-                MyContent()
-            }
+            MyGlance()
+        }
+    }
+
+    @OptIn(ExperimentalGlancePreviewApi::class)
+    @Preview(widthDp = 172, heightDp = 244)
+    @Composable
+    fun MyGlancePreview() {
+        MyGlance()
+    }
+
+    @Composable
+    private fun MyGlance() {
+        GlanceTheme {
+            MyContent()
         }
     }
 
@@ -83,18 +100,29 @@ class MyGlanceAppWidget : GlanceAppWidget() {
             }
 
             androidx.glance.Image(// 网络图片现在支持比较艰难
-                androidx.glance.ImageProvider(android.R.mipmap.sym_def_app_icon), contentDescription = "mm",
+                androidx.glance.ImageProvider(android.R.mipmap.sym_def_app_icon),
+                contentDescription = "mm",
                 modifier = GlanceModifier.fillMaxWidth().height(100.dp)
             )
             Text(text = "Where to?", modifier = GlanceModifier.padding(12.dp))
             Row(horizontalAlignment = Alignment.CenterHorizontally) {
                 Button(
                     text = "Home",
-                    onClick = actionStartActivity(componentName = ComponentName(BaseApplication.VERSION_INFO.third, "com.app.template.MainActivity"))
+                    onClick = actionStartActivity(
+                        componentName = ComponentName(
+                            BaseApplication.VERSION_INFO.third,
+                            "com.app.template.MainActivity"
+                        )
+                    )
                 )
                 Button(
                     text = "Work",
-                    onClick = actionStartActivity(componentName = ComponentName(BaseApplication.VERSION_INFO.third, "com.app.template.MainActivity"))
+                    onClick = actionStartActivity(
+                        componentName = ComponentName(
+                            BaseApplication.VERSION_INFO.third,
+                            "com.app.template.MainActivity"
+                        )
+                    )
                 )
             }
         }
