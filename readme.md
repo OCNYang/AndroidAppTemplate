@@ -180,3 +180,8 @@ Looper.myQueue().addIdleHandler(MyIdleHandler())
 
 还有一个库：
 [compose 页面切换和点击 全局监听](https://github.com/ckenergy/ComposeEventTrack)
+
+
+## webview 首屏加载优化
+
+ [Tencent/VasSonic](https://github.com/Tencent/VasSonic/blob/master/sonic-android/README.md)
