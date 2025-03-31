@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
+import com.github.pwittchen.reactivenetwork.library.rx2.internet.observing.InternetObservingSettings
+import com.github.pwittchen.reactivenetwork.library.rx2.internet.observing.strategy.SocketInternetObservingStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +37,14 @@ object NetworkChangeListener {
         context: Context,
         onChange: (Connectivity) -> Unit = { Log.d("NetworkChangeListener", "event network: $it") }
     ) {
-        ReactiveNetwork.observeNetworkConnectivity(context.applicationContext)
+//        val settings = InternetObservingSettings.builder()
+//            .host("www.baidu.com")
+//            .strategy(SocketInternetObservingStrategy())
+//            .build()
+//        
+        ReactiveNetwork
+//            .observeInternetConnectivity(settings)
+            .observeNetworkConnectivity(context.applicationContext)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {

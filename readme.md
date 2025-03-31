@@ -2,7 +2,7 @@
 
 **简易形式的架构请看分支： [v1.0.0](https://github.com/OCNYang/AndroidAppTemplate/tree/v1.0.0)**（适合小项目）
 
-![](./docs/AndroidAppTemplate.jpg)
+![](https://cdn.jsdelivr.net/gh/ocnyang/AndroidAppTemplate@master/docs/AndroidAppTemplate.jpg)
 
 
 - [x] 桌面小部件 // 比如小米，需要在小米开放平台注册成功后，小部件才能显示，不然入口将会很深。
